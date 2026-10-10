@@ -1,0 +1,1854 @@
+   1              		.cpu cortex-m0
+   2              		.arch armv6s-m
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 0
+  12              		.eabi_attribute 18, 4
+  13              		.file	"simpleserial.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.file 1 "/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c"
+  18              		.section	.text.ss_crc,"ax",%progbits
+  19              		.align	1
+  20              		.global	ss_crc
+  21              		.syntax unified
+  22              		.code	16
+  23              		.thumb_func
+  25              	ss_crc:
+  26              	.LVL0:
+  27              	.LFB0:
+   1:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** // simpleserial.c
+   2:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 
+   3:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** #include "simpleserial.h"
+   4:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** #include <stdint.h>
+   5:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** #include "hal.h"
+   6:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 
+   7:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 
+   8:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** #define MAX_SS_CMDS 32
+   9:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** static int num_commands = 0;
+  10:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 
+  11:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 
+  12:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** //#define SS_VER_1_0 0
+  13:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** //#define SS_VER_1_1 1
+  14:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** //#define SS_VER_2_0 2
+  15:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 
+  16:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 
+  17:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** // 0xA6 formerly 
+  18:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** #define CW_CRC 0x4D 
+  19:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** uint8_t ss_crc(uint8_t *buf, uint8_t len)
+  20:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** {
+  28              		.loc 1 20 1 view -0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  21:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	unsigned int k = 0;
+  32              		.loc 1 21 2 view .LVU1
+  22:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	uint8_t crc = 0x00;
+  33              		.loc 1 22 2 view .LVU2
+  23:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	while (len--) {
+  34              		.loc 1 23 2 view .LVU3
+  35 0000 0200     		movs	r2, r0
+  36 0002 4118     		adds	r1, r0, r1
+  37              	.LVL1:
+  22:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	uint8_t crc = 0x00;
+  38              		.loc 1 22 10 is_stmt 0 view .LVU4
+  39 0004 0020     		movs	r0, #0
+  40              	.LVL2:
+  20:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	unsigned int k = 0;
+  41              		.loc 1 20 1 view .LVU5
+  42 0006 10B5     		push	{r4, lr}
+  43              	.LCFI0:
+  44              		.cfi_def_cfa_offset 8
+  45              		.cfi_offset 4, -8
+  46              		.cfi_offset 14, -4
+  47 0008 054C     		ldr	r4, .L4
+  48              	.LVL3:
+  49              	.L2:
+  50              		.loc 1 23 9 is_stmt 1 view .LVU6
+  51              		.loc 1 23 9 is_stmt 0 view .LVU7
+  52 000a 8A42     		cmp	r2, r1
+  53 000c 00D1     		bne	.L3
+  24:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		crc ^= *buf++;
+  25:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		for (k = 0; k < 8; k++) {
+  26:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 			crc = crc & 0x80 ? (crc << 1) ^ CW_CRC: crc << 1;
+  27:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		}
+  28:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	}
+  29:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	return crc;
+  54              		.loc 1 29 2 is_stmt 1 view .LVU8
+  30:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 
+  31:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** }
+  55              		.loc 1 31 1 is_stmt 0 view .LVU9
+  56              		@ sp needed
+  57 000e 10BD     		pop	{r4, pc}
+  58              	.L3:
+  24:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		crc ^= *buf++;
+  59              		.loc 1 24 3 is_stmt 1 view .LVU10
+  60              	.LVL4:
+  24:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		crc ^= *buf++;
+  61              		.loc 1 24 7 is_stmt 0 view .LVU11
+  62 0010 1378     		ldrb	r3, [r2]
+  63 0012 0132     		adds	r2, r2, #1
+  64              	.LVL5:
+  24:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		crc ^= *buf++;
+  65              		.loc 1 24 7 view .LVU12
+  66 0014 5840     		eors	r0, r3
+  67              	.LVL6:
+  25:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 			crc = crc & 0x80 ? (crc << 1) ^ CW_CRC: crc << 1;
+  68              		.loc 1 25 3 is_stmt 1 view .LVU13
+  26:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		}
+  69              		.loc 1 26 4 view .LVU14
+  25:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 			crc = crc & 0x80 ? (crc << 1) ^ CW_CRC: crc << 1;
+  70              		.loc 1 25 23 discriminator 2 view .LVU15
+  25:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 			crc = crc & 0x80 ? (crc << 1) ^ CW_CRC: crc << 1;
+  71              		.loc 1 25 17 discriminator 1 view .LVU16
+  72 0016 C0B2     		uxtb	r0, r0
+  73 0018 205C     		ldrb	r0, [r4, r0]
+  74 001a C0B2     		uxtb	r0, r0
+  75 001c F5E7     		b	.L2
+  76              	.L5:
+  77 001e C046     		.align	2
+  78              	.L4:
+  79 0020 00000000 		.word	.LC0
+  80              		.cfi_endproc
+  81              	.LFE0:
+  83              		.section	.text.hex_decode,"ax",%progbits
+  84              		.align	1
+  85              		.global	hex_decode
+  86              		.syntax unified
+  87              		.code	16
+  88              		.thumb_func
+  90              	hex_decode:
+  91              	.LVL7:
+  92              	.LFB1:
+  32:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 
+  33:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** // [B_STUFF, CMD, SCMD, LEN, B_STUFF, DATA..., CRC, TERM]
+  34:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 
+  35:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** //#define SS_VER SS_VER_2_0
+  36:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** #if SS_VER == SS_VER_2_0
+  37:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** #error "SS_VER_2_0 is deprecated! Use SS_VER_2_1 instead."
+  38:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** #elif SS_VER == SS_VER_2_1
+  39:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 
+  40:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** #define MAX_SS_LEN 249
+  41:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 
+  42:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** int hex_decode(int len, char* ascii_buf, uint8_t* data_buf)
+  43:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** {
+  93              		.loc 1 43 1 view -0
+  94              		.cfi_startproc
+  95              		@ args = 0, pretend = 0, frame = 0
+  96              		@ frame_needed = 0, uses_anonymous_args = 0
+  44:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	for(int i = 0; i < len; i++)
+  97              		.loc 1 44 2 view .LVU18
+  98              	.LBB2:
+  99              		.loc 1 44 6 view .LVU19
+ 100              		.loc 1 44 6 is_stmt 0 view .LVU20
+ 101              	.LBE2:
+  43:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	for(int i = 0; i < len; i++)
+ 102              		.loc 1 43 1 view .LVU21
+ 103 0000 70B5     		push	{r4, r5, r6, lr}
+ 104              	.LCFI1:
+ 105              		.cfi_def_cfa_offset 16
+ 106              		.cfi_offset 4, -16
+ 107              		.cfi_offset 5, -12
+ 108              		.cfi_offset 6, -8
+ 109              		.cfi_offset 14, -4
+ 110              	.LBB6:
+ 111              		.loc 1 44 2 view .LVU22
+ 112 0002 1400     		movs	r4, r2
+ 113              	.LVL8:
+ 114              	.L7:
+ 115              		.loc 1 44 19 is_stmt 1 discriminator 1 view .LVU23
+ 116 0004 A31A     		subs	r3, r4, r2
+ 117 0006 9842     		cmp	r0, r3
+ 118 0008 01DC     		bgt	.L17
+ 119              	.LBE6:
+  45:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	{
+  46:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		char n_hi = ascii_buf[2*i];
+  47:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		char n_lo = ascii_buf[2*i+1];
+  48:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 
+  49:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		if(n_lo >= '0' && n_lo <= '9')
+  50:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 			data_buf[i] = n_lo - '0';
+  51:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		else if(n_lo >= 'A' && n_lo <= 'F')
+  52:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 			data_buf[i] = n_lo - 'A' + 10;
+  53:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		else if(n_lo >= 'a' && n_lo <= 'f')
+  54:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 			data_buf[i] = n_lo - 'a' + 10;
+  55:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		else
+  56:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 			return 1;
+  57:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 
+  58:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		if(n_hi >= '0' && n_hi <= '9')
+  59:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 			data_buf[i] |= (n_hi - '0') << 4;
+  60:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		else if(n_hi >= 'A' && n_hi <= 'F')
+  61:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 			data_buf[i] |= (n_hi - 'A' + 10) << 4;
+  62:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		else if(n_hi >= 'a' && n_hi <= 'f')
+  63:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 			data_buf[i] |= (n_hi - 'a' + 10) << 4;
+  64:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		else
+  65:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 			return 1;
+  66:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	}
+  67:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 
+  68:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	return 0;
+ 120              		.loc 1 68 9 is_stmt 0 view .LVU24
+ 121 000a 0020     		movs	r0, #0
+ 122              	.LVL9:
+ 123              		.loc 1 68 9 view .LVU25
+ 124 000c 1FE0     		b	.L6
+ 125              	.LVL10:
+ 126              	.L17:
+ 127              	.LBB7:
+ 128              	.LBB3:
+  46:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		char n_lo = ascii_buf[2*i+1];
+ 129              		.loc 1 46 3 is_stmt 1 view .LVU26
+  47:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 
+ 130              		.loc 1 47 8 is_stmt 0 view .LVU27
+ 131 000e 4D78     		ldrb	r5, [r1, #1]
+  46:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		char n_lo = ascii_buf[2*i+1];
+ 132              		.loc 1 46 8 view .LVU28
+ 133 0010 0B78     		ldrb	r3, [r1]
+ 134              	.LVL11:
+  47:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 
+ 135              		.loc 1 47 3 is_stmt 1 view .LVU29
+  49:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 			data_buf[i] = n_lo - '0';
+ 136              		.loc 1 49 3 view .LVU30
+  49:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 			data_buf[i] = n_lo - '0';
+ 137              		.loc 1 49 18 is_stmt 0 view .LVU31
+ 138 0012 2E00     		movs	r6, r5
+ 139 0014 303E     		subs	r6, r6, #48
+ 140 0016 F6B2     		uxtb	r6, r6
+  49:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 			data_buf[i] = n_lo - '0';
+ 141              		.loc 1 49 5 view .LVU32
+ 142 0018 092E     		cmp	r6, #9
+ 143 001a 0CD8     		bhi	.L8
+  50:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		else if(n_lo >= 'A' && n_lo <= 'F')
+ 144              		.loc 1 50 4 is_stmt 1 view .LVU33
+  50:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		else if(n_lo >= 'A' && n_lo <= 'F')
+ 145              		.loc 1 50 16 is_stmt 0 view .LVU34
+ 146 001c 2670     		strb	r6, [r4]
+ 147              	.LVL12:
+ 148              	.L9:
+  58:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 			data_buf[i] |= (n_hi - '0') << 4;
+ 149              		.loc 1 58 3 is_stmt 1 view .LVU35
+  58:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 			data_buf[i] |= (n_hi - '0') << 4;
+ 150              		.loc 1 58 18 is_stmt 0 view .LVU36
+ 151 001e 1D00     		movs	r5, r3
+ 152 0020 303D     		subs	r5, r5, #48
+ 153 0022 EDB2     		uxtb	r5, r5
+  58:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 			data_buf[i] |= (n_hi - '0') << 4;
+ 154              		.loc 1 58 5 view .LVU37
+ 155 0024 092D     		cmp	r5, #9
+ 156 0026 15D8     		bhi	.L13
+  59:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		else if(n_hi >= 'A' && n_hi <= 'F')
+ 157              		.loc 1 59 4 is_stmt 1 view .LVU38
+  59:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		else if(n_hi >= 'A' && n_hi <= 'F')
+ 158              		.loc 1 59 16 is_stmt 0 view .LVU39
+ 159 0028 2378     		ldrb	r3, [r4]
+ 160              	.LVL13:
+  59:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		else if(n_hi >= 'A' && n_hi <= 'F')
+ 161              		.loc 1 59 16 view .LVU40
+ 162 002a 2D01     		lsls	r5, r5, #4
+ 163 002c 1D43     		orrs	r5, r3
+ 164 002e 2570     		strb	r5, [r4]
+ 165              	.L14:
+  59:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		else if(n_hi >= 'A' && n_hi <= 'F')
+ 166              		.loc 1 59 16 view .LVU41
+ 167              	.LBE3:
+  44:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	{
+ 168              		.loc 1 44 27 is_stmt 1 discriminator 2 view .LVU42
+ 169              	.LVL14:
+  44:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	{
+ 170              		.loc 1 44 27 is_stmt 0 discriminator 2 view .LVU43
+ 171 0030 0134     		adds	r4, r4, #1
+ 172              	.LVL15:
+  44:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	{
+ 173              		.loc 1 44 27 discriminator 2 view .LVU44
+ 174 0032 0231     		adds	r1, r1, #2
+ 175 0034 E6E7     		b	.L7
+ 176              	.LVL16:
+ 177              	.L8:
+ 178              	.LBB4:
+  51:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 			data_buf[i] = n_lo - 'A' + 10;
+ 179              		.loc 1 51 8 is_stmt 1 view .LVU45
+  51:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 			data_buf[i] = n_lo - 'A' + 10;
+ 180              		.loc 1 51 10 is_stmt 0 view .LVU46
+ 181 0036 2E00     		movs	r6, r5
+ 182 0038 413E     		subs	r6, r6, #65
+ 183 003a 052E     		cmp	r6, #5
+ 184 003c 02D8     		bhi	.L10
+  52:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		else if(n_lo >= 'a' && n_lo <= 'f')
+ 185              		.loc 1 52 4 is_stmt 1 view .LVU47
+  52:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		else if(n_lo >= 'a' && n_lo <= 'f')
+ 186              		.loc 1 52 29 is_stmt 0 view .LVU48
+ 187 003e 373D     		subs	r5, r5, #55
+ 188              	.LVL17:
+ 189              	.L18:
+  54:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		else
+ 190              		.loc 1 54 16 view .LVU49
+ 191 0040 2570     		strb	r5, [r4]
+ 192              	.LVL18:
+  54:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		else
+ 193              		.loc 1 54 16 view .LVU50
+ 194 0042 ECE7     		b	.L9
+ 195              	.LVL19:
+ 196              	.L10:
+  53:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 			data_buf[i] = n_lo - 'a' + 10;
+ 197              		.loc 1 53 8 is_stmt 1 view .LVU51
+  53:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 			data_buf[i] = n_lo - 'a' + 10;
+ 198              		.loc 1 53 10 is_stmt 0 view .LVU52
+ 199 0044 2E00     		movs	r6, r5
+ 200 0046 613E     		subs	r6, r6, #97
+ 201 0048 052E     		cmp	r6, #5
+ 202 004a 01D9     		bls	.L11
+ 203              	.LVL20:
+ 204              	.L16:
+  56:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 
+ 205              		.loc 1 56 11 view .LVU53
+ 206 004c 0120     		movs	r0, #1
+ 207              	.LVL21:
+ 208              	.L6:
+  56:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 
+ 209              		.loc 1 56 11 view .LVU54
+ 210              	.LBE4:
+ 211              	.LBE7:
+  69:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** }
+ 212              		.loc 1 69 1 view .LVU55
+ 213              		@ sp needed
+ 214              	.LVL22:
+ 215              		.loc 1 69 1 view .LVU56
+ 216 004e 70BD     		pop	{r4, r5, r6, pc}
+ 217              	.LVL23:
+ 218              	.L11:
+ 219              	.LBB8:
+ 220              	.LBB5:
+  54:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		else
+ 221              		.loc 1 54 4 is_stmt 1 view .LVU57
+  54:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		else
+ 222              		.loc 1 54 29 is_stmt 0 view .LVU58
+ 223 0050 573D     		subs	r5, r5, #87
+ 224              	.LVL24:
+  54:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		else
+ 225              		.loc 1 54 29 view .LVU59
+ 226 0052 F5E7     		b	.L18
+ 227              	.LVL25:
+ 228              	.L13:
+  60:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 			data_buf[i] |= (n_hi - 'A' + 10) << 4;
+ 229              		.loc 1 60 8 is_stmt 1 view .LVU60
+  60:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 			data_buf[i] |= (n_hi - 'A' + 10) << 4;
+ 230              		.loc 1 60 10 is_stmt 0 view .LVU61
+ 231 0054 1D00     		movs	r5, r3
+ 232 0056 413D     		subs	r5, r5, #65
+ 233 0058 052D     		cmp	r5, #5
+ 234 005a 05D8     		bhi	.L15
+  61:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		else if(n_hi >= 'a' && n_hi <= 'f')
+ 235              		.loc 1 61 4 is_stmt 1 view .LVU62
+  61:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		else if(n_hi >= 'a' && n_hi <= 'f')
+ 236              		.loc 1 61 16 is_stmt 0 view .LVU63
+ 237 005c 373B     		subs	r3, r3, #55
+ 238              	.LVL26:
+ 239              	.L19:
+  63:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		else
+ 240              		.loc 1 63 16 view .LVU64
+ 241 005e 2578     		ldrb	r5, [r4]
+ 242 0060 1B01     		lsls	r3, r3, #4
+ 243 0062 2B43     		orrs	r3, r5
+ 244 0064 2370     		strb	r3, [r4]
+ 245 0066 E3E7     		b	.L14
+ 246              	.LVL27:
+ 247              	.L15:
+  62:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 			data_buf[i] |= (n_hi - 'a' + 10) << 4;
+ 248              		.loc 1 62 8 is_stmt 1 view .LVU65
+  62:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 			data_buf[i] |= (n_hi - 'a' + 10) << 4;
+ 249              		.loc 1 62 10 is_stmt 0 view .LVU66
+ 250 0068 1D00     		movs	r5, r3
+ 251 006a 613D     		subs	r5, r5, #97
+ 252 006c 052D     		cmp	r5, #5
+ 253 006e EDD8     		bhi	.L16
+  63:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		else
+ 254              		.loc 1 63 4 is_stmt 1 view .LVU67
+  63:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		else
+ 255              		.loc 1 63 16 is_stmt 0 view .LVU68
+ 256 0070 573B     		subs	r3, r3, #87
+ 257              	.LVL28:
+  63:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		else
+ 258              		.loc 1 63 16 view .LVU69
+ 259 0072 F4E7     		b	.L19
+ 260              	.LBE5:
+ 261              	.LBE8:
+ 262              		.cfi_endproc
+ 263              	.LFE1:
+ 265              		.section	.text.ss_puts,"ax",%progbits
+ 266              		.align	1
+ 267              		.global	ss_puts
+ 268              		.syntax unified
+ 269              		.code	16
+ 270              		.thumb_func
+ 272              	ss_puts:
+ 273              	.LVL29:
+ 274              	.LFB2:
+  70:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 
+  71:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** typedef struct ss_cmd
+  72:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** {
+  73:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	char c;
+  74:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	unsigned int len;
+  75:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	uint8_t (*fp)(uint8_t, uint8_t, uint8_t, uint8_t *);
+  76:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** } ss_cmd;
+  77:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** static ss_cmd commands[MAX_SS_CMDS];
+  78:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 
+  79:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** void ss_puts(char *x)
+  80:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** {
+ 275              		.loc 1 80 1 is_stmt 1 view -0
+ 276              		.cfi_startproc
+ 277              		@ args = 0, pretend = 0, frame = 0
+ 278              		@ frame_needed = 0, uses_anonymous_args = 0
+ 279              		.loc 1 80 1 is_stmt 0 view .LVU71
+ 280 0000 10B5     		push	{r4, lr}
+ 281              	.LCFI2:
+ 282              		.cfi_def_cfa_offset 8
+ 283              		.cfi_offset 4, -8
+ 284              		.cfi_offset 14, -4
+ 285 0002 0400     		movs	r4, r0
+ 286              	.LVL30:
+ 287              	.L21:
+  81:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	do {
+ 288              		.loc 1 81 2 is_stmt 1 view .LVU72
+  82:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		putch(*x);
+ 289              		.loc 1 82 3 view .LVU73
+ 290 0004 2078     		ldrb	r0, [r4]
+  83:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	} while (*++x);
+ 291              		.loc 1 83 11 is_stmt 0 discriminator 1 view .LVU74
+ 292 0006 0134     		adds	r4, r4, #1
+ 293              	.LVL31:
+  82:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		putch(*x);
+ 294              		.loc 1 82 3 view .LVU75
+ 295 0008 FFF7FEFF 		bl	putch
+ 296              	.LVL32:
+ 297              		.loc 1 83 11 is_stmt 1 discriminator 1 view .LVU76
+ 298              		.loc 1 83 11 is_stmt 0 discriminator 1 view .LVU77
+ 299 000c 2378     		ldrb	r3, [r4]
+ 300 000e 002B     		cmp	r3, #0
+ 301 0010 F8D1     		bne	.L21
+  84:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** }
+ 302              		.loc 1 84 1 view .LVU78
+ 303              		@ sp needed
+ 304              	.LVL33:
+ 305              		.loc 1 84 1 view .LVU79
+ 306 0012 10BD     		pop	{r4, pc}
+ 307              		.cfi_endproc
+ 308              	.LFE2:
+ 310              		.section	.text.stuff_data,"ax",%progbits
+ 311              		.align	1
+ 312              		.global	stuff_data
+ 313              		.syntax unified
+ 314              		.code	16
+ 315              		.thumb_func
+ 317              	stuff_data:
+ 318              	.LVL34:
+ 319              	.LFB5:
+  85:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 
+  86:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** #define FRAME_BYTE 0x00
+  87:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 
+  88:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** uint8_t check_version(uint8_t cmd, uint8_t scmd, uint8_t len, uint8_t *data)
+  89:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** {
+  90:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	uint8_t ver = SS_VER;
+  91:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	simpleserial_put('r', 1, &ver);
+  92:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	return SS_ERR_OK;
+  93:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** }
+  94:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 
+  95:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** uint8_t ss_get_commands(uint8_t cmd, uint8_t scmd, uint8_t len, uint8_t *data)
+  96:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** {
+  97:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c ****     uint8_t cmd_chars[MAX_SS_CMDS];
+  98:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c ****     for (uint8_t i = 0; i < (num_commands & 0xFF); i++) {
+  99:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c ****         cmd_chars[i] = commands[i].c;
+ 100:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c ****     }
+ 101:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 
+ 102:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c ****     simpleserial_put('r', num_commands & 0xFF, (void *)cmd_chars);
+ 103:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c ****     return 0x00;
+ 104:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 
+ 105:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** }
+ 106:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 
+ 107:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** uint8_t stuff_data(uint8_t *buf, uint8_t len)
+ 108:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** {
+ 320              		.loc 1 108 1 is_stmt 1 view -0
+ 321              		.cfi_startproc
+ 322              		@ args = 0, pretend = 0, frame = 0
+ 323              		@ frame_needed = 0, uses_anonymous_args = 0
+ 109:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	uint8_t i = 1;
+ 324              		.loc 1 109 2 view .LVU81
+ 110:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	uint8_t last = 0;
+ 325              		.loc 1 110 2 view .LVU82
+ 111:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	for (; i < len; i++) {
+ 326              		.loc 1 111 2 view .LVU83
+ 110:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	uint8_t last = 0;
+ 327              		.loc 1 110 10 is_stmt 0 view .LVU84
+ 328 0000 0022     		movs	r2, #0
+ 109:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	uint8_t i = 1;
+ 329              		.loc 1 109 10 view .LVU85
+ 330 0002 0123     		movs	r3, #1
+ 108:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	uint8_t i = 1;
+ 331              		.loc 1 108 1 view .LVU86
+ 332 0004 30B5     		push	{r4, r5, lr}
+ 333              	.LCFI3:
+ 334              		.cfi_def_cfa_offset 12
+ 335              		.cfi_offset 4, -12
+ 336              		.cfi_offset 5, -8
+ 337              		.cfi_offset 14, -4
+ 338 0006 441C     		adds	r4, r0, #1
+ 339              	.LVL35:
+ 340              	.L24:
+ 341              		.loc 1 111 11 is_stmt 1 discriminator 1 view .LVU87
+ 342 0008 8B42     		cmp	r3, r1
+ 343 000a 01D3     		bcc	.L26
+ 112:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		if (buf[i] == FRAME_BYTE) {
+ 113:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 			buf[last] = i - last;
+ 114:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 			last = i;
+ 115:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		}
+ 116:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	}
+ 117:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	return 0x00;
+ 344              		.loc 1 117 2 view .LVU88
+ 118:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** }
+ 345              		.loc 1 118 1 is_stmt 0 view .LVU89
+ 346              		@ sp needed
+ 347 000c 0020     		movs	r0, #0
+ 348              	.LVL36:
+ 349              		.loc 1 118 1 view .LVU90
+ 350 000e 30BD     		pop	{r4, r5, pc}
+ 351              	.LVL37:
+ 352              	.L26:
+ 112:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		if (buf[i] == FRAME_BYTE) {
+ 353              		.loc 1 112 3 is_stmt 1 view .LVU91
+ 112:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		if (buf[i] == FRAME_BYTE) {
+ 354              		.loc 1 112 6 is_stmt 0 view .LVU92
+ 355 0010 2578     		ldrb	r5, [r4]
+ 356 0012 002D     		cmp	r5, #0
+ 357 0014 02D1     		bne	.L25
+ 113:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 			last = i;
+ 358              		.loc 1 113 4 is_stmt 1 view .LVU93
+ 113:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 			last = i;
+ 359              		.loc 1 113 18 is_stmt 0 view .LVU94
+ 360 0016 9D1A     		subs	r5, r3, r2
+ 113:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 			last = i;
+ 361              		.loc 1 113 14 view .LVU95
+ 362 0018 8554     		strb	r5, [r0, r2]
+ 114:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		}
+ 363              		.loc 1 114 4 is_stmt 1 view .LVU96
+ 364              	.LVL38:
+ 114:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		}
+ 365              		.loc 1 114 9 is_stmt 0 view .LVU97
+ 366 001a 1A00     		movs	r2, r3
+ 367              	.LVL39:
+ 368              	.L25:
+ 111:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		if (buf[i] == FRAME_BYTE) {
+ 369              		.loc 1 111 19 is_stmt 1 view .LVU98
+ 370 001c 0133     		adds	r3, r3, #1
+ 371              	.LVL40:
+ 111:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		if (buf[i] == FRAME_BYTE) {
+ 372              		.loc 1 111 19 is_stmt 0 view .LVU99
+ 373 001e DBB2     		uxtb	r3, r3
+ 374              	.LVL41:
+ 111:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		if (buf[i] == FRAME_BYTE) {
+ 375              		.loc 1 111 19 view .LVU100
+ 376 0020 0134     		adds	r4, r4, #1
+ 377 0022 F1E7     		b	.L24
+ 378              		.cfi_endproc
+ 379              	.LFE5:
+ 381              		.section	.text.unstuff_data,"ax",%progbits
+ 382              		.align	1
+ 383              		.global	unstuff_data
+ 384              		.syntax unified
+ 385              		.code	16
+ 386              		.thumb_func
+ 388              	unstuff_data:
+ 389              	.LVL42:
+ 390              	.LFB6:
+ 119:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 
+ 120:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** uint8_t unstuff_data(uint8_t *buf, uint8_t len)
+ 121:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** {
+ 391              		.loc 1 121 1 is_stmt 1 view -0
+ 392              		.cfi_startproc
+ 393              		@ args = 0, pretend = 0, frame = 0
+ 394              		@ frame_needed = 0, uses_anonymous_args = 0
+ 122:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	uint8_t next = buf[0];
+ 395              		.loc 1 122 2 view .LVU102
+ 121:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	uint8_t next = buf[0];
+ 396              		.loc 1 121 1 is_stmt 0 view .LVU103
+ 397 0000 30B5     		push	{r4, r5, lr}
+ 398              	.LCFI4:
+ 399              		.cfi_def_cfa_offset 12
+ 400              		.cfi_offset 4, -12
+ 401              		.cfi_offset 5, -8
+ 402              		.cfi_offset 14, -4
+ 123:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	buf[0] = 0x00;
+ 403              		.loc 1 123 9 view .LVU104
+ 404 0002 0025     		movs	r5, #0
+ 122:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	uint8_t next = buf[0];
+ 405              		.loc 1 122 10 view .LVU105
+ 406 0004 0278     		ldrb	r2, [r0]
+ 407              	.LVL43:
+ 408              		.loc 1 123 2 is_stmt 1 view .LVU106
+ 121:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	uint8_t next = buf[0];
+ 409              		.loc 1 121 1 is_stmt 0 view .LVU107
+ 410 0006 0400     		movs	r4, r0
+ 411              		.loc 1 123 9 view .LVU108
+ 412 0008 0570     		strb	r5, [r0]
+ 124:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	//len -= 1;
+ 125:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	uint8_t tmp = next;
+ 413              		.loc 1 125 2 is_stmt 1 view .LVU109
+ 414              	.LVL44:
+ 126:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	while ((next < len) && tmp != 0) {
+ 415              		.loc 1 126 2 view .LVU110
+ 122:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	buf[0] = 0x00;
+ 416              		.loc 1 122 10 is_stmt 0 view .LVU111
+ 417 000a 1000     		movs	r0, r2
+ 418              	.LVL45:
+ 419              	.L28:
+ 420              		.loc 1 126 22 is_stmt 1 view .LVU112
+ 421 000c 8842     		cmp	r0, r1
+ 422 000e 01D2     		bcs	.L32
+ 423              		.loc 1 126 22 is_stmt 0 discriminator 1 view .LVU113
+ 424 0010 002A     		cmp	r2, #0
+ 425 0012 00D1     		bne	.L30
+ 426              	.L32:
+ 127:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		tmp = buf[next];
+ 128:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		buf[next] = FRAME_BYTE;
+ 129:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		next += tmp;
+ 130:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	}
+ 131:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	return next;
+ 132:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** }
+ 427              		.loc 1 132 1 view .LVU114
+ 428              		@ sp needed
+ 429              	.LVL46:
+ 430              		.loc 1 132 1 view .LVU115
+ 431 0014 30BD     		pop	{r4, r5, pc}
+ 432              	.LVL47:
+ 433              	.L30:
+ 127:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		tmp = buf[next];
+ 434              		.loc 1 127 3 is_stmt 1 view .LVU116
+ 127:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		tmp = buf[next];
+ 435              		.loc 1 127 7 is_stmt 0 view .LVU117
+ 436 0016 225C     		ldrb	r2, [r4, r0]
+ 437              	.LVL48:
+ 128:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		next += tmp;
+ 438              		.loc 1 128 3 is_stmt 1 view .LVU118
+ 128:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		next += tmp;
+ 439              		.loc 1 128 13 is_stmt 0 view .LVU119
+ 440 0018 2554     		strb	r5, [r4, r0]
+ 129:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	}
+ 441              		.loc 1 129 3 is_stmt 1 view .LVU120
+ 129:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	}
+ 442              		.loc 1 129 8 is_stmt 0 view .LVU121
+ 443 001a 8018     		adds	r0, r0, r2
+ 444              	.LVL49:
+ 129:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	}
+ 445              		.loc 1 129 8 view .LVU122
+ 446 001c C0B2     		uxtb	r0, r0
+ 447 001e F5E7     		b	.L28
+ 448              		.cfi_endproc
+ 449              	.LFE6:
+ 451              		.section	.text.simpleserial_addcmd,"ax",%progbits
+ 452              		.align	1
+ 453              		.global	simpleserial_addcmd
+ 454              		.syntax unified
+ 455              		.code	16
+ 456              		.thumb_func
+ 458              	simpleserial_addcmd:
+ 459              	.LVL50:
+ 460              	.LFB8:
+ 133:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 
+ 134:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** // Set up the SimpleSerial module by preparing internal commands
+ 135:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** // This just adds the "v" command for now...
+ 136:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** void simpleserial_init()
+ 137:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** {
+ 138:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	simpleserial_addcmd('v', 0, check_version);
+ 139:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c ****     simpleserial_addcmd('w', 0, ss_get_commands);
+ 140:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** }
+ 141:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 
+ 142:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** int simpleserial_addcmd(char c, unsigned int len, uint8_t (*fp)(uint8_t, uint8_t, uint8_t, uint8_t*
+ 143:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** {
+ 461              		.loc 1 143 1 is_stmt 1 view -0
+ 462              		.cfi_startproc
+ 463              		@ args = 0, pretend = 0, frame = 0
+ 464              		@ frame_needed = 0, uses_anonymous_args = 0
+ 144:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	if(num_commands >= MAX_SS_CMDS) {
+ 465              		.loc 1 144 2 view .LVU124
+ 143:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	if(num_commands >= MAX_SS_CMDS) {
+ 466              		.loc 1 143 1 is_stmt 0 view .LVU125
+ 467 0000 70B5     		push	{r4, r5, r6, lr}
+ 468              	.LCFI5:
+ 469              		.cfi_def_cfa_offset 16
+ 470              		.cfi_offset 4, -16
+ 471              		.cfi_offset 5, -12
+ 472              		.cfi_offset 6, -8
+ 473              		.cfi_offset 14, -4
+ 474              		.loc 1 144 18 view .LVU126
+ 475 0002 0C4E     		ldr	r6, .L39
+ 476 0004 3468     		ldr	r4, [r6]
+ 477              		.loc 1 144 4 view .LVU127
+ 478 0006 1F2C     		cmp	r4, #31
+ 479 0008 04DD     		ble	.L34
+ 145:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		putch('a');
+ 480              		.loc 1 145 3 is_stmt 1 view .LVU128
+ 481 000a 6120     		movs	r0, #97
+ 482              	.LVL51:
+ 483              	.L38:
+ 146:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		return 1;
+ 147:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	}
+ 148:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 
+ 149:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	if(len >= MAX_SS_LEN) {
+ 150:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		putch('b');
+ 484              		.loc 1 150 3 is_stmt 0 view .LVU129
+ 485 000c FFF7FEFF 		bl	putch
+ 486              	.LVL52:
+ 151:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		return 1;
+ 487              		.loc 1 151 3 is_stmt 1 view .LVU130
+ 146:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		return 1;
+ 488              		.loc 1 146 10 is_stmt 0 view .LVU131
+ 489 0010 0120     		movs	r0, #1
+ 490              	.L33:
+ 152:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	}
+ 153:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 
+ 154:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	commands[num_commands].c   = c;
+ 155:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	commands[num_commands].len = len;
+ 156:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	commands[num_commands].fp  = fp;
+ 157:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	num_commands++;
+ 158:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 
+ 159:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	return 0;
+ 160:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** }
+ 491              		.loc 1 160 1 view .LVU132
+ 492              		@ sp needed
+ 493 0012 70BD     		pop	{r4, r5, r6, pc}
+ 494              	.LVL53:
+ 495              	.L34:
+ 149:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		putch('b');
+ 496              		.loc 1 149 2 is_stmt 1 view .LVU133
+ 149:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		putch('b');
+ 497              		.loc 1 149 4 is_stmt 0 view .LVU134
+ 498 0014 F829     		cmp	r1, #248
+ 499 0016 01D9     		bls	.L36
+ 150:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		return 1;
+ 500              		.loc 1 150 3 is_stmt 1 view .LVU135
+ 501 0018 6220     		movs	r0, #98
+ 502              	.LVL54:
+ 150:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		return 1;
+ 503              		.loc 1 150 3 is_stmt 0 view .LVU136
+ 504 001a F7E7     		b	.L38
+ 505              	.LVL55:
+ 506              	.L36:
+ 154:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	commands[num_commands].len = len;
+ 507              		.loc 1 154 2 is_stmt 1 view .LVU137
+ 154:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	commands[num_commands].len = len;
+ 508              		.loc 1 154 29 is_stmt 0 view .LVU138
+ 509 001c 0C25     		movs	r5, #12
+ 510 001e 6543     		muls	r5, r4
+ 511 0020 054B     		ldr	r3, .L39+4
+ 157:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 
+ 512              		.loc 1 157 14 view .LVU139
+ 513 0022 0134     		adds	r4, r4, #1
+ 154:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	commands[num_commands].len = len;
+ 514              		.loc 1 154 29 view .LVU140
+ 515 0024 E854     		strb	r0, [r5, r3]
+ 155:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	commands[num_commands].fp  = fp;
+ 516              		.loc 1 155 2 is_stmt 1 view .LVU141
+ 155:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	commands[num_commands].fp  = fp;
+ 517              		.loc 1 155 29 is_stmt 0 view .LVU142
+ 518 0026 5B19     		adds	r3, r3, r5
+ 159:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** }
+ 519              		.loc 1 159 9 view .LVU143
+ 520 0028 0020     		movs	r0, #0
+ 521              	.LVL56:
+ 155:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	commands[num_commands].fp  = fp;
+ 522              		.loc 1 155 29 view .LVU144
+ 523 002a 5960     		str	r1, [r3, #4]
+ 156:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	num_commands++;
+ 524              		.loc 1 156 2 is_stmt 1 view .LVU145
+ 156:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	num_commands++;
+ 525              		.loc 1 156 29 is_stmt 0 view .LVU146
+ 526 002c 9A60     		str	r2, [r3, #8]
+ 157:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 
+ 527              		.loc 1 157 2 is_stmt 1 view .LVU147
+ 157:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 
+ 528              		.loc 1 157 14 is_stmt 0 view .LVU148
+ 529 002e 3460     		str	r4, [r6]
+ 159:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** }
+ 530              		.loc 1 159 2 is_stmt 1 view .LVU149
+ 159:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** }
+ 531              		.loc 1 159 9 is_stmt 0 view .LVU150
+ 532 0030 EFE7     		b	.L33
+ 533              	.L40:
+ 534 0032 C046     		.align	2
+ 535              	.L39:
+ 536 0034 00000000 		.word	.LANCHOR0
+ 537 0038 04000000 		.word	commands
+ 538              		.cfi_endproc
+ 539              	.LFE8:
+ 541              		.section	.text.simpleserial_init,"ax",%progbits
+ 542              		.align	1
+ 543              		.global	simpleserial_init
+ 544              		.syntax unified
+ 545              		.code	16
+ 546              		.thumb_func
+ 548              	simpleserial_init:
+ 549              	.LFB7:
+ 137:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	simpleserial_addcmd('v', 0, check_version);
+ 550              		.loc 1 137 1 is_stmt 1 view -0
+ 551              		.cfi_startproc
+ 552              		@ args = 0, pretend = 0, frame = 0
+ 553              		@ frame_needed = 0, uses_anonymous_args = 0
+ 138:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c ****     simpleserial_addcmd('w', 0, ss_get_commands);
+ 554              		.loc 1 138 2 view .LVU152
+ 137:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	simpleserial_addcmd('v', 0, check_version);
+ 555              		.loc 1 137 1 is_stmt 0 view .LVU153
+ 556 0000 10B5     		push	{r4, lr}
+ 557              	.LCFI6:
+ 558              		.cfi_def_cfa_offset 8
+ 559              		.cfi_offset 4, -8
+ 560              		.cfi_offset 14, -4
+ 138:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c ****     simpleserial_addcmd('w', 0, ss_get_commands);
+ 561              		.loc 1 138 2 view .LVU154
+ 562 0002 0021     		movs	r1, #0
+ 140:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 
+ 563              		.loc 1 140 1 view .LVU155
+ 564              		@ sp needed
+ 138:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c ****     simpleserial_addcmd('w', 0, ss_get_commands);
+ 565              		.loc 1 138 2 view .LVU156
+ 566 0004 044A     		ldr	r2, .L42
+ 567 0006 7620     		movs	r0, #118
+ 568 0008 FFF7FEFF 		bl	simpleserial_addcmd
+ 569              	.LVL57:
+ 139:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** }
+ 570              		.loc 1 139 5 is_stmt 1 view .LVU157
+ 571 000c 0021     		movs	r1, #0
+ 572 000e 7720     		movs	r0, #119
+ 573 0010 024A     		ldr	r2, .L42+4
+ 574 0012 FFF7FEFF 		bl	simpleserial_addcmd
+ 575              	.LVL58:
+ 140:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 
+ 576              		.loc 1 140 1 is_stmt 0 view .LVU158
+ 577 0016 10BD     		pop	{r4, pc}
+ 578              	.L43:
+ 579              		.align	2
+ 580              	.L42:
+ 581 0018 00000000 		.word	check_version
+ 582 001c 00000000 		.word	ss_get_commands
+ 583              		.cfi_endproc
+ 584              	.LFE7:
+ 586              		.section	.text.simpleserial_put,"ax",%progbits
+ 587              		.align	1
+ 588              		.global	simpleserial_put
+ 589              		.syntax unified
+ 590              		.code	16
+ 591              		.thumb_func
+ 593              	simpleserial_put:
+ 594              	.LVL59:
+ 595              	.LFB10:
+ 161:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 
+ 162:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** void simpleserial_get(void)
+ 163:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** {
+ 164:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	uint8_t data_buf[MAX_SS_LEN];
+ 165:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	uint8_t err = 0;
+ 166:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 
+ 167:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	for (int i = 0; i < 4; i++) {
+ 168:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		data_buf[i] = getch(); //PTR, cmd, scmd, len
+ 169:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		if (data_buf[i] == FRAME_BYTE) {
+ 170:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 			err = SS_ERR_FRAME_BYTE;
+ 171:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 			goto ERROR;
+ 172:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		}
+ 173:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	}
+ 174:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	uint8_t next_frame = unstuff_data(data_buf, 4);
+ 175:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 
+ 176:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	// check for valid command
+ 177:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	uint8_t c = 0;
+ 178:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	for(c = 0; c < num_commands; c++)
+ 179:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	{
+ 180:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		if(commands[c].c == data_buf[1])
+ 181:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 			break;
+ 182:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	}
+ 183:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 
+ 184:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	if (c == num_commands) {
+ 185:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		err = SS_ERR_CMD;
+ 186:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		goto ERROR;
+ 187:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	}
+ 188:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 
+ 189:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	//check that next frame not beyond end of message
+ 190:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	// account for cmd, scmd, len, data, crc, end of frame
+ 191:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	if ((data_buf[3] + 5) < next_frame) {
+ 192:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		err = SS_ERR_LEN;
+ 193:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		goto ERROR;
+ 194:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	}
+ 195:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 
+ 196:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	// read in data
+ 197:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	// eq to len + crc + frame end
+ 198:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	int i = 4;
+ 199:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	for (; i < data_buf[3] + 5; i++) {
+ 200:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		data_buf[i] = getch();
+ 201:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		if (data_buf[i] == FRAME_BYTE) {
+ 202:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 			err = SS_ERR_FRAME_BYTE;
+ 203:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 			goto ERROR;
+ 204:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		}
+ 205:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	}
+ 206:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 
+ 207:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	//check that final byte is the FRAME_BYTE
+ 208:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	data_buf[i] = getch();
+ 209:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	if (data_buf[i] != FRAME_BYTE) {
+ 210:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		err = SS_ERR_LEN;
+ 211:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		goto ERROR;
+ 212:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	}
+ 213:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 
+ 214:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	//fully unstuff data now
+ 215:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	unstuff_data(data_buf + next_frame, i - next_frame + 1);
+ 216:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 
+ 217:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	//calc crc excluding original frame offset and frame end and crc
+ 218:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	uint8_t crc = ss_crc(data_buf+1, i-2);
+ 219:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	if (crc != data_buf[i-1]) {
+ 220:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		err = SS_ERR_CRC;
+ 221:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		goto ERROR;
+ 222:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	}
+ 223:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 
+ 224:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	err = commands[c].fp(data_buf[1], data_buf[2], data_buf[3], data_buf+4);
+ 225:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 
+ 226:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** ERROR:
+ 227:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	simpleserial_put('e', 0x01, &err);
+ 228:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	return;
+ 229:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** }
+ 230:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 
+ 231:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** void simpleserial_put(char c, uint8_t size, uint8_t* output)
+ 232:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** {
+ 596              		.loc 1 232 1 is_stmt 1 view -0
+ 597              		.cfi_startproc
+ 598              		@ args = 0, pretend = 0, frame = 256
+ 599              		@ frame_needed = 0, uses_anonymous_args = 0
+ 233:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c ****     if (!output) return;
+ 600              		.loc 1 233 5 view .LVU160
+ 232:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c ****     if (!output) return;
+ 601              		.loc 1 232 1 is_stmt 0 view .LVU161
+ 602 0000 F0B5     		push	{r4, r5, r6, r7, lr}
+ 603              	.LCFI7:
+ 604              		.cfi_def_cfa_offset 20
+ 605              		.cfi_offset 4, -20
+ 606              		.cfi_offset 5, -16
+ 607              		.cfi_offset 6, -12
+ 608              		.cfi_offset 7, -8
+ 609              		.cfi_offset 14, -4
+ 610 0002 0C00     		movs	r4, r1
+ 611 0004 C1B0     		sub	sp, sp, #260
+ 612              	.LCFI8:
+ 613              		.cfi_def_cfa_offset 280
+ 614              		.loc 1 233 8 view .LVU162
+ 615 0006 002A     		cmp	r2, #0
+ 616 0008 1CD0     		beq	.L44
+ 234:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	uint8_t data_buf[MAX_SS_LEN+5];
+ 617              		.loc 1 234 2 is_stmt 1 view .LVU163
+ 235:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	data_buf[0] = 0x00;
+ 618              		.loc 1 235 2 view .LVU164
+ 619              		.loc 1 235 14 is_stmt 0 view .LVU165
+ 620 000a 6D46     		mov	r5, sp
+ 621 000c 0023     		movs	r3, #0
+ 236:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	data_buf[1] = c;
+ 622              		.loc 1 236 14 view .LVU166
+ 623 000e 6870     		strb	r0, [r5, #1]
+ 235:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	data_buf[0] = 0x00;
+ 624              		.loc 1 235 14 view .LVU167
+ 625 0010 2B70     		strb	r3, [r5]
+ 626              		.loc 1 236 2 is_stmt 1 view .LVU168
+ 237:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	data_buf[2] = size;
+ 627              		.loc 1 237 2 view .LVU169
+ 628              		.loc 1 237 14 is_stmt 0 view .LVU170
+ 629 0012 A970     		strb	r1, [r5, #2]
+ 238:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	int i = 0;
+ 630              		.loc 1 238 2 is_stmt 1 view .LVU171
+ 631              	.LVL60:
+ 239:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	for (; i < size; i++) {
+ 632              		.loc 1 239 2 view .LVU172
+ 633              	.L46:
+ 634              		.loc 1 239 11 discriminator 1 view .LVU173
+ 635 0014 9C42     		cmp	r4, r3
+ 636 0016 17DC     		bgt	.L47
+ 240:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		data_buf[i + 3] = output[i];
+ 241:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	}
+ 242:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	data_buf[i + 3] = ss_crc(data_buf+1, size+2);
+ 637              		.loc 1 242 2 view .LVU174
+ 638              		.loc 1 242 20 is_stmt 0 view .LVU175
+ 639 0018 6B46     		mov	r3, sp
+ 640              	.LVL61:
+ 641              		.loc 1 242 20 view .LVU176
+ 642 001a A11C     		adds	r1, r4, #2
+ 643 001c C9B2     		uxtb	r1, r1
+ 644 001e 581C     		adds	r0, r3, #1
+ 645 0020 FFF7FEFF 		bl	ss_crc
+ 646              	.LVL62:
+ 243:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	data_buf[i + 4] = 0x00;
+ 647              		.loc 1 243 18 view .LVU177
+ 648 0024 0026     		movs	r6, #0
+ 242:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	data_buf[i + 4] = 0x00;
+ 649              		.loc 1 242 18 discriminator 1 view .LVU178
+ 650 0026 2B19     		adds	r3, r5, r4
+ 651              		.loc 1 243 13 view .LVU179
+ 652 0028 271D     		adds	r7, r4, #4
+ 244:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	stuff_data(data_buf, i + 5);
+ 653              		.loc 1 244 2 view .LVU180
+ 654 002a 0534     		adds	r4, r4, #5
+ 655              	.LVL63:
+ 242:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	data_buf[i + 4] = 0x00;
+ 656              		.loc 1 242 18 discriminator 1 view .LVU181
+ 657 002c D870     		strb	r0, [r3, #3]
+ 243:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	data_buf[i + 4] = 0x00;
+ 658              		.loc 1 243 2 is_stmt 1 view .LVU182
+ 659              		.loc 1 244 2 is_stmt 0 view .LVU183
+ 660 002e E1B2     		uxtb	r1, r4
+ 661 0030 2800     		movs	r0, r5
+ 243:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	data_buf[i + 4] = 0x00;
+ 662              		.loc 1 243 18 view .LVU184
+ 663 0032 EE55     		strb	r6, [r5, r7]
+ 664              		.loc 1 244 2 is_stmt 1 view .LVU185
+ 665 0034 FFF7FEFF 		bl	stuff_data
+ 666              	.LVL64:
+ 245:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	for (int i = 0; i < size + 5; i++) {
+ 667              		.loc 1 245 2 view .LVU186
+ 668              	.LBB9:
+ 669              		.loc 1 245 7 view .LVU187
+ 670              		.loc 1 245 20 discriminator 1 view .LVU188
+ 671              	.L48:
+ 246:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		putch(data_buf[i]);
+ 672              		.loc 1 246 3 view .LVU189
+ 673 0038 A85D     		ldrb	r0, [r5, r6]
+ 245:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	for (int i = 0; i < size + 5; i++) {
+ 674              		.loc 1 245 33 is_stmt 0 discriminator 3 view .LVU190
+ 675 003a 0136     		adds	r6, r6, #1
+ 676              	.LVL65:
+ 677              		.loc 1 246 3 view .LVU191
+ 678 003c FFF7FEFF 		bl	putch
+ 679              	.LVL66:
+ 245:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	for (int i = 0; i < size + 5; i++) {
+ 680              		.loc 1 245 33 is_stmt 1 discriminator 3 view .LVU192
+ 245:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	for (int i = 0; i < size + 5; i++) {
+ 681              		.loc 1 245 20 discriminator 1 view .LVU193
+ 682 0040 B742     		cmp	r7, r6
+ 683 0042 F9DA     		bge	.L48
+ 684              	.LVL67:
+ 685              	.L44:
+ 245:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	for (int i = 0; i < size + 5; i++) {
+ 686              		.loc 1 245 20 is_stmt 0 discriminator 1 view .LVU194
+ 687              	.LBE9:
+ 247:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	}
+ 248:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** }
+ 688              		.loc 1 248 1 view .LVU195
+ 689 0044 41B0     		add	sp, sp, #260
+ 690              		@ sp needed
+ 691 0046 F0BD     		pop	{r4, r5, r6, r7, pc}
+ 692              	.LVL68:
+ 693              	.L47:
+ 240:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	}
+ 694              		.loc 1 240 3 is_stmt 1 view .LVU196
+ 240:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	}
+ 695              		.loc 1 240 19 is_stmt 0 view .LVU197
+ 696 0048 D05C     		ldrb	r0, [r2, r3]
+ 697 004a E918     		adds	r1, r5, r3
+ 698 004c C870     		strb	r0, [r1, #3]
+ 239:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		data_buf[i + 3] = output[i];
+ 699              		.loc 1 239 20 is_stmt 1 discriminator 2 view .LVU198
+ 700 004e 0133     		adds	r3, r3, #1
+ 701              	.LVL69:
+ 239:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		data_buf[i + 3] = output[i];
+ 702              		.loc 1 239 20 is_stmt 0 discriminator 2 view .LVU199
+ 703 0050 E0E7     		b	.L46
+ 704              		.cfi_endproc
+ 705              	.LFE10:
+ 707              		.section	.text.check_version,"ax",%progbits
+ 708              		.align	1
+ 709              		.global	check_version
+ 710              		.syntax unified
+ 711              		.code	16
+ 712              		.thumb_func
+ 714              	check_version:
+ 715              	.LVL70:
+ 716              	.LFB3:
+  89:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	uint8_t ver = SS_VER;
+ 717              		.loc 1 89 1 is_stmt 1 view -0
+ 718              		.cfi_startproc
+ 719              		@ args = 0, pretend = 0, frame = 8
+ 720              		@ frame_needed = 0, uses_anonymous_args = 0
+  90:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	simpleserial_put('r', 1, &ver);
+ 721              		.loc 1 90 2 view .LVU201
+  89:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	uint8_t ver = SS_VER;
+ 722              		.loc 1 89 1 is_stmt 0 view .LVU202
+ 723 0000 07B5     		push	{r0, r1, r2, lr}
+ 724              	.LCFI9:
+ 725              		.cfi_def_cfa_offset 16
+ 726              		.cfi_offset 0, -16
+ 727              		.cfi_offset 1, -12
+ 728              		.cfi_offset 2, -8
+ 729              		.cfi_offset 14, -4
+  90:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	simpleserial_put('r', 1, &ver);
+ 730              		.loc 1 90 10 view .LVU203
+ 731 0002 0323     		movs	r3, #3
+ 732              	.LVL71:
+  93:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 
+ 733              		.loc 1 93 1 view .LVU204
+ 734              		@ sp needed
+  90:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	simpleserial_put('r', 1, &ver);
+ 735              		.loc 1 90 10 view .LVU205
+ 736 0004 6A46     		mov	r2, sp
+ 737              	.LVL72:
+  91:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	return SS_ERR_OK;
+ 738              		.loc 1 91 2 view .LVU206
+ 739 0006 7220     		movs	r0, #114
+ 740              	.LVL73:
+  90:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	simpleserial_put('r', 1, &ver);
+ 741              		.loc 1 90 10 view .LVU207
+ 742 0008 D371     		strb	r3, [r2, #7]
+  91:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	return SS_ERR_OK;
+ 743              		.loc 1 91 2 is_stmt 1 view .LVU208
+ 744 000a 0121     		movs	r1, #1
+ 745              	.LVL74:
+  91:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	return SS_ERR_OK;
+ 746              		.loc 1 91 2 is_stmt 0 view .LVU209
+ 747 000c 0732     		adds	r2, r2, #7
+ 748 000e FFF7FEFF 		bl	simpleserial_put
+ 749              	.LVL75:
+  92:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** }
+ 750              		.loc 1 92 2 is_stmt 1 view .LVU210
+  93:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 
+ 751              		.loc 1 93 1 is_stmt 0 view .LVU211
+ 752 0012 0020     		movs	r0, #0
+ 753 0014 0EBD     		pop	{r1, r2, r3, pc}
+ 754              		.cfi_endproc
+ 755              	.LFE3:
+ 757              		.section	.text.ss_get_commands,"ax",%progbits
+ 758              		.align	1
+ 759              		.global	ss_get_commands
+ 760              		.syntax unified
+ 761              		.code	16
+ 762              		.thumb_func
+ 764              	ss_get_commands:
+ 765              	.LVL76:
+ 766              	.LFB4:
+  96:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c ****     uint8_t cmd_chars[MAX_SS_CMDS];
+ 767              		.loc 1 96 1 is_stmt 1 view -0
+ 768              		.cfi_startproc
+ 769              		@ args = 0, pretend = 0, frame = 32
+ 770              		@ frame_needed = 0, uses_anonymous_args = 0
+  97:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c ****     for (uint8_t i = 0; i < (num_commands & 0xFF); i++) {
+ 771              		.loc 1 97 5 view .LVU213
+  98:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c ****         cmd_chars[i] = commands[i].c;
+ 772              		.loc 1 98 5 view .LVU214
+ 773              	.LBB10:
+  98:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c ****         cmd_chars[i] = commands[i].c;
+ 774              		.loc 1 98 10 view .LVU215
+  98:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c ****         cmd_chars[i] = commands[i].c;
+ 775              		.loc 1 98 10 is_stmt 0 view .LVU216
+ 776              	.LBE10:
+  96:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c ****     uint8_t cmd_chars[MAX_SS_CMDS];
+ 777              		.loc 1 96 1 view .LVU217
+ 778 0000 70B5     		push	{r4, r5, r6, lr}
+ 779              	.LCFI10:
+ 780              		.cfi_def_cfa_offset 16
+ 781              		.cfi_offset 4, -16
+ 782              		.cfi_offset 5, -12
+ 783              		.cfi_offset 6, -8
+ 784              		.cfi_offset 14, -4
+ 785              	.LBB11:
+  98:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c ****         cmd_chars[i] = commands[i].c;
+ 786              		.loc 1 98 43 discriminator 1 view .LVU218
+ 787 0002 0B4B     		ldr	r3, .L55
+ 788              	.LVL77:
+  98:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c ****         cmd_chars[i] = commands[i].c;
+ 789              		.loc 1 98 43 discriminator 1 view .LVU219
+ 790              	.LBE11:
+  96:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c ****     uint8_t cmd_chars[MAX_SS_CMDS];
+ 791              		.loc 1 96 1 view .LVU220
+ 792 0004 88B0     		sub	sp, sp, #32
+ 793              	.LCFI11:
+ 794              		.cfi_def_cfa_offset 48
+ 795              	.LBB12:
+  98:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c ****         cmd_chars[i] = commands[i].c;
+ 796              		.loc 1 98 43 discriminator 1 view .LVU221
+ 797 0006 1968     		ldr	r1, [r3]
+ 798              	.LVL78:
+  98:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c ****         cmd_chars[i] = commands[i].c;
+ 799              		.loc 1 98 43 discriminator 1 view .LVU222
+ 800 0008 6A46     		mov	r2, sp
+ 801              	.LVL79:
+  98:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c ****         cmd_chars[i] = commands[i].c;
+ 802              		.loc 1 98 18 view .LVU223
+ 803 000a 0023     		movs	r3, #0
+  99:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c ****     }
+ 804              		.loc 1 99 35 view .LVU224
+ 805 000c 094C     		ldr	r4, .L55+4
+  98:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c ****         cmd_chars[i] = commands[i].c;
+ 806              		.loc 1 98 43 discriminator 1 view .LVU225
+ 807 000e C8B2     		uxtb	r0, r1
+ 808              	.LVL80:
+ 809              	.L53:
+  98:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c ****         cmd_chars[i] = commands[i].c;
+ 810              		.loc 1 98 27 is_stmt 1 discriminator 1 view .LVU226
+ 811 0010 8342     		cmp	r3, r0
+ 812 0012 06DB     		blt	.L54
+ 813              	.LBE12:
+ 102:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c ****     return 0x00;
+ 814              		.loc 1 102 5 view .LVU227
+ 815 0014 7220     		movs	r0, #114
+ 816 0016 C9B2     		uxtb	r1, r1
+ 817 0018 FFF7FEFF 		bl	simpleserial_put
+ 818              	.LVL81:
+ 103:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 
+ 819              		.loc 1 103 5 view .LVU228
+ 105:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 
+ 820              		.loc 1 105 1 is_stmt 0 view .LVU229
+ 821 001c 0020     		movs	r0, #0
+ 822 001e 08B0     		add	sp, sp, #32
+ 823              		@ sp needed
+ 824 0020 70BD     		pop	{r4, r5, r6, pc}
+ 825              	.LVL82:
+ 826              	.L54:
+ 827              	.LBB13:
+  99:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c ****     }
+ 828              		.loc 1 99 9 is_stmt 1 view .LVU230
+  99:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c ****     }
+ 829              		.loc 1 99 35 is_stmt 0 view .LVU231
+ 830 0022 0C26     		movs	r6, #12
+ 831 0024 5E43     		muls	r6, r3
+  99:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c ****     }
+ 832              		.loc 1 99 22 view .LVU232
+ 833 0026 365D     		ldrb	r6, [r6, r4]
+ 834 0028 D654     		strb	r6, [r2, r3]
+  98:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c ****         cmd_chars[i] = commands[i].c;
+ 835              		.loc 1 98 53 is_stmt 1 discriminator 3 view .LVU233
+ 836 002a 0133     		adds	r3, r3, #1
+ 837              	.LVL83:
+  98:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c ****         cmd_chars[i] = commands[i].c;
+ 838              		.loc 1 98 53 is_stmt 0 discriminator 3 view .LVU234
+ 839 002c DBB2     		uxtb	r3, r3
+ 840 002e EFE7     		b	.L53
+ 841              	.L56:
+ 842              		.align	2
+ 843              	.L55:
+ 844 0030 00000000 		.word	.LANCHOR0
+ 845 0034 04000000 		.word	commands
+ 846              	.LBE13:
+ 847              		.cfi_endproc
+ 848              	.LFE4:
+ 850              		.section	.text.simpleserial_get,"ax",%progbits
+ 851              		.align	1
+ 852              		.global	simpleserial_get
+ 853              		.syntax unified
+ 854              		.code	16
+ 855              		.thumb_func
+ 857              	simpleserial_get:
+ 858              	.LFB9:
+ 163:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	uint8_t data_buf[MAX_SS_LEN];
+ 859              		.loc 1 163 1 is_stmt 1 view -0
+ 860              		.cfi_startproc
+ 861              		@ args = 0, pretend = 0, frame = 264
+ 862              		@ frame_needed = 0, uses_anonymous_args = 0
+ 164:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	uint8_t err = 0;
+ 863              		.loc 1 164 2 view .LVU236
+ 165:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 
+ 864              		.loc 1 165 2 view .LVU237
+ 167:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		data_buf[i] = getch(); //PTR, cmd, scmd, len
+ 865              		.loc 1 167 2 view .LVU238
+ 866              	.LBB14:
+ 167:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		data_buf[i] = getch(); //PTR, cmd, scmd, len
+ 867              		.loc 1 167 7 view .LVU239
+ 868              	.LVL84:
+ 167:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		data_buf[i] = getch(); //PTR, cmd, scmd, len
+ 869              		.loc 1 167 20 discriminator 1 view .LVU240
+ 870              	.LBE14:
+ 163:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	uint8_t data_buf[MAX_SS_LEN];
+ 871              		.loc 1 163 1 is_stmt 0 view .LVU241
+ 872 0000 F0B5     		push	{r4, r5, r6, r7, lr}
+ 873              	.LCFI12:
+ 874              		.cfi_def_cfa_offset 20
+ 875              		.cfi_offset 4, -20
+ 876              		.cfi_offset 5, -16
+ 877              		.cfi_offset 6, -12
+ 878              		.cfi_offset 7, -8
+ 879              		.cfi_offset 14, -4
+ 880              	.LBB15:
+ 167:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		data_buf[i] = getch(); //PTR, cmd, scmd, len
+ 881              		.loc 1 167 11 view .LVU242
+ 882 0002 0024     		movs	r4, #0
+ 883              	.LBE15:
+ 163:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	uint8_t data_buf[MAX_SS_LEN];
+ 884              		.loc 1 163 1 view .LVU243
+ 885 0004 C3B0     		sub	sp, sp, #268
+ 886              	.LCFI13:
+ 887              		.cfi_def_cfa_offset 288
+ 888              	.LVL85:
+ 889              	.L60:
+ 890              	.LBB16:
+ 168:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		if (data_buf[i] == FRAME_BYTE) {
+ 891              		.loc 1 168 3 is_stmt 1 view .LVU244
+ 168:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		if (data_buf[i] == FRAME_BYTE) {
+ 892              		.loc 1 168 17 is_stmt 0 view .LVU245
+ 893 0006 FFF7FEFF 		bl	getch
+ 894              	.LVL86:
+ 168:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		if (data_buf[i] == FRAME_BYTE) {
+ 895              		.loc 1 168 15 discriminator 1 view .LVU246
+ 896 000a 03AD     		add	r5, sp, #12
+ 897 000c 6055     		strb	r0, [r4, r5]
+ 169:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 			err = SS_ERR_FRAME_BYTE;
+ 898              		.loc 1 169 3 is_stmt 1 view .LVU247
+ 169:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 			err = SS_ERR_FRAME_BYTE;
+ 899              		.loc 1 169 6 is_stmt 0 view .LVU248
+ 900 000e 0028     		cmp	r0, #0
+ 901 0010 09D1     		bne	.L58
+ 902              	.LVL87:
+ 903              	.L65:
+ 170:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 			goto ERROR;
+ 904              		.loc 1 170 4 is_stmt 1 view .LVU249
+ 171:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		}
+ 905              		.loc 1 171 4 view .LVU250
+ 906 0012 0523     		movs	r3, #5
+ 907              	.L59:
+ 170:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 			goto ERROR;
+ 908              		.loc 1 170 8 is_stmt 0 view .LVU251
+ 909 0014 02AA     		add	r2, sp, #8
+ 910 0016 0332     		adds	r2, r2, #3
+ 911              	.LBE16:
+ 227:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	return;
+ 912              		.loc 1 227 2 view .LVU252
+ 913 0018 0121     		movs	r1, #1
+ 914 001a 6520     		movs	r0, #101
+ 915              	.LBB17:
+ 170:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 			goto ERROR;
+ 916              		.loc 1 170 8 view .LVU253
+ 917 001c 1370     		strb	r3, [r2]
+ 918              	.LBE17:
+ 227:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	return;
+ 919              		.loc 1 227 2 is_stmt 1 view .LVU254
+ 920 001e FFF7FEFF 		bl	simpleserial_put
+ 921              	.LVL88:
+ 228:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** }
+ 922              		.loc 1 228 2 view .LVU255
+ 229:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 
+ 923              		.loc 1 229 1 is_stmt 0 view .LVU256
+ 924 0022 43B0     		add	sp, sp, #268
+ 925              		@ sp needed
+ 926 0024 F0BD     		pop	{r4, r5, r6, r7, pc}
+ 927              	.LVL89:
+ 928              	.L58:
+ 929              	.LBB18:
+ 167:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		data_buf[i] = getch(); //PTR, cmd, scmd, len
+ 930              		.loc 1 167 26 is_stmt 1 discriminator 2 view .LVU257
+ 931 0026 0134     		adds	r4, r4, #1
+ 932              	.LVL90:
+ 167:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		data_buf[i] = getch(); //PTR, cmd, scmd, len
+ 933              		.loc 1 167 20 discriminator 1 view .LVU258
+ 934 0028 042C     		cmp	r4, #4
+ 935 002a ECD1     		bne	.L60
+ 936              	.LBE18:
+ 174:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 
+ 937              		.loc 1 174 2 view .LVU259
+ 174:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 
+ 938              		.loc 1 174 23 is_stmt 0 view .LVU260
+ 939 002c 2100     		movs	r1, r4
+ 940 002e 2800     		movs	r0, r5
+ 941 0030 FFF7FEFF 		bl	unstuff_data
+ 942              	.LVL91:
+ 178:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	{
+ 943              		.loc 1 178 8 view .LVU261
+ 944 0034 0026     		movs	r6, #0
+ 174:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 
+ 945              		.loc 1 174 23 view .LVU262
+ 946 0036 0700     		movs	r7, r0
+ 947              	.LVL92:
+ 177:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	for(c = 0; c < num_commands; c++)
+ 948              		.loc 1 177 2 is_stmt 1 view .LVU263
+ 178:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	{
+ 949              		.loc 1 178 2 view .LVU264
+ 178:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	{
+ 950              		.loc 1 178 15 is_stmt 0 discriminator 1 view .LVU265
+ 951 0038 234B     		ldr	r3, .L75
+ 180:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 			break;
+ 952              		.loc 1 180 17 view .LVU266
+ 953 003a 2449     		ldr	r1, .L75+4
+ 178:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	{
+ 954              		.loc 1 178 15 discriminator 1 view .LVU267
+ 955 003c 1A68     		ldr	r2, [r3]
+ 180:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 			break;
+ 956              		.loc 1 180 31 view .LVU268
+ 957 003e 6B78     		ldrb	r3, [r5, #1]
+ 958 0040 0193     		str	r3, [sp, #4]
+ 959              	.LVL93:
+ 960              	.L61:
+ 178:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	{
+ 961              		.loc 1 178 15 is_stmt 1 discriminator 1 view .LVU269
+ 962 0042 9642     		cmp	r6, r2
+ 963 0044 08DB     		blt	.L63
+ 184:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		err = SS_ERR_CMD;
+ 964              		.loc 1 184 2 view .LVU270
+ 965 0046 0123     		movs	r3, #1
+ 184:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		err = SS_ERR_CMD;
+ 966              		.loc 1 184 5 is_stmt 0 view .LVU271
+ 967 0048 9642     		cmp	r6, r2
+ 968 004a E3D0     		beq	.L59
+ 969              	.L62:
+ 191:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		err = SS_ERR_LEN;
+ 970              		.loc 1 191 2 is_stmt 1 view .LVU272
+ 191:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		err = SS_ERR_LEN;
+ 971              		.loc 1 191 15 is_stmt 0 view .LVU273
+ 972 004c EB78     		ldrb	r3, [r5, #3]
+ 191:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		err = SS_ERR_LEN;
+ 973              		.loc 1 191 19 view .LVU274
+ 974 004e 0533     		adds	r3, r3, #5
+ 191:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		err = SS_ERR_LEN;
+ 975              		.loc 1 191 5 view .LVU275
+ 976 0050 BB42     		cmp	r3, r7
+ 977 0052 11DA     		bge	.L64
+ 978              	.LVL94:
+ 979              	.L67:
+ 192:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		goto ERROR;
+ 980              		.loc 1 192 3 is_stmt 1 view .LVU276
+ 193:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	}
+ 981              		.loc 1 193 3 view .LVU277
+ 982 0054 0423     		movs	r3, #4
+ 983 0056 DDE7     		b	.L59
+ 984              	.LVL95:
+ 985              	.L63:
+ 180:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 			break;
+ 986              		.loc 1 180 3 view .LVU278
+ 180:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 			break;
+ 987              		.loc 1 180 17 is_stmt 0 view .LVU279
+ 988 0058 0C23     		movs	r3, #12
+ 989 005a 7343     		muls	r3, r6
+ 180:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 			break;
+ 990              		.loc 1 180 5 view .LVU280
+ 991 005c 5B5C     		ldrb	r3, [r3, r1]
+ 992 005e 9C46     		mov	ip, r3
+ 993 0060 019B     		ldr	r3, [sp, #4]
+ 994 0062 9C45     		cmp	ip, r3
+ 995 0064 F2D0     		beq	.L62
+ 178:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	{
+ 996              		.loc 1 178 32 is_stmt 1 discriminator 2 view .LVU281
+ 997 0066 0136     		adds	r6, r6, #1
+ 998              	.LVL96:
+ 178:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	{
+ 999              		.loc 1 178 32 is_stmt 0 discriminator 2 view .LVU282
+ 1000 0068 F6B2     		uxtb	r6, r6
+ 1001 006a EAE7     		b	.L61
+ 1002              	.LVL97:
+ 1003              	.L66:
+ 200:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		if (data_buf[i] == FRAME_BYTE) {
+ 1004              		.loc 1 200 3 is_stmt 1 view .LVU283
+ 200:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		if (data_buf[i] == FRAME_BYTE) {
+ 1005              		.loc 1 200 17 is_stmt 0 view .LVU284
+ 1006 006c FFF7FEFF 		bl	getch
+ 1007              	.LVL98:
+ 200:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		if (data_buf[i] == FRAME_BYTE) {
+ 1008              		.loc 1 200 15 discriminator 1 view .LVU285
+ 1009 0070 2855     		strb	r0, [r5, r4]
+ 201:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 			err = SS_ERR_FRAME_BYTE;
+ 1010              		.loc 1 201 3 is_stmt 1 view .LVU286
+ 201:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 			err = SS_ERR_FRAME_BYTE;
+ 1011              		.loc 1 201 6 is_stmt 0 view .LVU287
+ 1012 0072 0028     		cmp	r0, #0
+ 1013 0074 CDD0     		beq	.L65
+ 199:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		data_buf[i] = getch();
+ 1014              		.loc 1 199 31 is_stmt 1 view .LVU288
+ 1015 0076 0134     		adds	r4, r4, #1
+ 1016              	.LVL99:
+ 1017              	.L64:
+ 199:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		data_buf[i] = getch();
+ 1018              		.loc 1 199 11 discriminator 1 view .LVU289
+ 199:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		data_buf[i] = getch();
+ 1019              		.loc 1 199 21 is_stmt 0 discriminator 1 view .LVU290
+ 1020 0078 EB78     		ldrb	r3, [r5, #3]
+ 199:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		data_buf[i] = getch();
+ 1021              		.loc 1 199 11 discriminator 1 view .LVU291
+ 1022 007a 0433     		adds	r3, r3, #4
+ 1023 007c A342     		cmp	r3, r4
+ 1024 007e F5DA     		bge	.L66
+ 208:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	if (data_buf[i] != FRAME_BYTE) {
+ 1025              		.loc 1 208 2 is_stmt 1 view .LVU292
+ 208:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	if (data_buf[i] != FRAME_BYTE) {
+ 1026              		.loc 1 208 16 is_stmt 0 view .LVU293
+ 1027 0080 FFF7FEFF 		bl	getch
+ 1028              	.LVL100:
+ 208:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	if (data_buf[i] != FRAME_BYTE) {
+ 1029              		.loc 1 208 14 discriminator 1 view .LVU294
+ 1030 0084 2855     		strb	r0, [r5, r4]
+ 209:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		err = SS_ERR_LEN;
+ 1031              		.loc 1 209 2 is_stmt 1 view .LVU295
+ 209:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		err = SS_ERR_LEN;
+ 1032              		.loc 1 209 5 is_stmt 0 view .LVU296
+ 1033 0086 0028     		cmp	r0, #0
+ 1034 0088 E4D1     		bne	.L67
+ 215:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 
+ 1035              		.loc 1 215 2 is_stmt 1 view .LVU297
+ 1036 008a E11B     		subs	r1, r4, r7
+ 1037 008c 0131     		adds	r1, r1, #1
+ 1038 008e C9B2     		uxtb	r1, r1
+ 1039 0090 E819     		adds	r0, r5, r7
+ 1040 0092 FFF7FEFF 		bl	unstuff_data
+ 1041              	.LVL101:
+ 218:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	if (crc != data_buf[i-1]) {
+ 1042              		.loc 1 218 2 view .LVU298
+ 218:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 	if (crc != data_buf[i-1]) {
+ 1043              		.loc 1 218 16 is_stmt 0 view .LVU299
+ 1044 0096 02AB     		add	r3, sp, #8
+ 1045 0098 A11E     		subs	r1, r4, #2
+ 1046 009a 581D     		adds	r0, r3, #5
+ 1047 009c C9B2     		uxtb	r1, r1
+ 1048 009e FFF7FEFF 		bl	ss_crc
+ 1049              	.LVL102:
+ 219:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		err = SS_ERR_CRC;
+ 1050              		.loc 1 219 2 is_stmt 1 view .LVU300
+ 219:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		err = SS_ERR_CRC;
+ 1051              		.loc 1 219 21 is_stmt 0 view .LVU301
+ 1052 00a2 2C19     		adds	r4, r5, r4
+ 1053              	.LVL103:
+ 219:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		err = SS_ERR_CRC;
+ 1054              		.loc 1 219 21 view .LVU302
+ 1055 00a4 013C     		subs	r4, r4, #1
+ 219:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 		err = SS_ERR_CRC;
+ 1056              		.loc 1 219 5 view .LVU303
+ 1057 00a6 2278     		ldrb	r2, [r4]
+ 1058 00a8 0223     		movs	r3, #2
+ 1059 00aa 8242     		cmp	r2, r0
+ 1060 00ac B2D1     		bne	.L59
+ 224:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 
+ 1061              		.loc 1 224 2 is_stmt 1 view .LVU304
+ 224:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 
+ 1062              		.loc 1 224 19 is_stmt 0 view .LVU305
+ 1063 00ae 0C24     		movs	r4, #12
+ 1064 00b0 7443     		muls	r4, r6
+ 1065 00b2 064B     		ldr	r3, .L75+4
+ 224:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 
+ 1066              		.loc 1 224 8 view .LVU306
+ 1067 00b4 EA78     		ldrb	r2, [r5, #3]
+ 224:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 
+ 1068              		.loc 1 224 19 view .LVU307
+ 1069 00b6 1B19     		adds	r3, r3, r4
+ 224:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 
+ 1070              		.loc 1 224 8 view .LVU308
+ 1071 00b8 9C68     		ldr	r4, [r3, #8]
+ 1072 00ba A978     		ldrb	r1, [r5, #2]
+ 1073 00bc 04AB     		add	r3, sp, #16
+ 1074 00be 6878     		ldrb	r0, [r5, #1]
+ 1075              	.LVL104:
+ 224:/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.c **** 
+ 1076              		.loc 1 224 8 view .LVU309
+ 1077 00c0 A047     		blx	r4
+ 1078              	.LVL105:
+ 1079 00c2 0300     		movs	r3, r0
+ 1080 00c4 A6E7     		b	.L59
+ 1081              	.L76:
+ 1082 00c6 C046     		.align	2
+ 1083              	.L75:
+ 1084 00c8 00000000 		.word	.LANCHOR0
+ 1085 00cc 04000000 		.word	commands
+ 1086              		.cfi_endproc
+ 1087              	.LFE9:
+ 1089              		.section	.rodata
+ 1090              	.LC0:
+ 1091 0000 00       		.byte	0
+ 1092 0001 4D       		.byte	77
+ 1093 0002 9A       		.byte	-102
+ 1094 0003 D7       		.byte	-41
+ 1095 0004 79       		.byte	121
+ 1096 0005 34       		.byte	52
+ 1097 0006 E3       		.byte	-29
+ 1098 0007 AE       		.byte	-82
+ 1099 0008 F2       		.byte	-14
+ 1100 0009 BF       		.byte	-65
+ 1101 000a 68       		.byte	104
+ 1102 000b 25       		.byte	37
+ 1103 000c 8B       		.byte	-117
+ 1104 000d C6       		.byte	-58
+ 1105 000e 11       		.byte	17
+ 1106 000f 5C       		.byte	92
+ 1107 0010 A9       		.byte	-87
+ 1108 0011 E4       		.byte	-28
+ 1109 0012 33       		.byte	51
+ 1110 0013 7E       		.byte	126
+ 1111 0014 D0       		.byte	-48
+ 1112 0015 9D       		.byte	-99
+ 1113 0016 4A       		.byte	74
+ 1114 0017 07       		.byte	7
+ 1115 0018 5B       		.byte	91
+ 1116 0019 16       		.byte	22
+ 1117 001a C1       		.byte	-63
+ 1118 001b 8C       		.byte	-116
+ 1119 001c 22       		.byte	34
+ 1120 001d 6F       		.byte	111
+ 1121 001e B8       		.byte	-72
+ 1122 001f F5       		.byte	-11
+ 1123 0020 1F       		.byte	31
+ 1124 0021 52       		.byte	82
+ 1125 0022 85       		.byte	-123
+ 1126 0023 C8       		.byte	-56
+ 1127 0024 66       		.byte	102
+ 1128 0025 2B       		.byte	43
+ 1129 0026 FC       		.byte	-4
+ 1130 0027 B1       		.byte	-79
+ 1131 0028 ED       		.byte	-19
+ 1132 0029 A0       		.byte	-96
+ 1133 002a 77       		.byte	119
+ 1134 002b 3A       		.byte	58
+ 1135 002c 94       		.byte	-108
+ 1136 002d D9       		.byte	-39
+ 1137 002e 0E       		.byte	14
+ 1138 002f 43       		.byte	67
+ 1139 0030 B6       		.byte	-74
+ 1140 0031 FB       		.byte	-5
+ 1141 0032 2C       		.byte	44
+ 1142 0033 61       		.byte	97
+ 1143 0034 CF       		.byte	-49
+ 1144 0035 82       		.byte	-126
+ 1145 0036 55       		.byte	85
+ 1146 0037 18       		.byte	24
+ 1147 0038 44       		.byte	68
+ 1148 0039 09       		.byte	9
+ 1149 003a DE       		.byte	-34
+ 1150 003b 93       		.byte	-109
+ 1151 003c 3D       		.byte	61
+ 1152 003d 70       		.byte	112
+ 1153 003e A7       		.byte	-89
+ 1154 003f EA       		.byte	-22
+ 1155 0040 3E       		.byte	62
+ 1156 0041 73       		.byte	115
+ 1157 0042 A4       		.byte	-92
+ 1158 0043 E9       		.byte	-23
+ 1159 0044 47       		.byte	71
+ 1160 0045 0A       		.byte	10
+ 1161 0046 DD       		.byte	-35
+ 1162 0047 90       		.byte	-112
+ 1163 0048 CC       		.byte	-52
+ 1164 0049 81       		.byte	-127
+ 1165 004a 56       		.byte	86
+ 1166 004b 1B       		.byte	27
+ 1167 004c B5       		.byte	-75
+ 1168 004d F8       		.byte	-8
+ 1169 004e 2F       		.byte	47
+ 1170 004f 62       		.byte	98
+ 1171 0050 97       		.byte	-105
+ 1172 0051 DA       		.byte	-38
+ 1173 0052 0D       		.byte	13
+ 1174 0053 40       		.byte	64
+ 1175 0054 EE       		.byte	-18
+ 1176 0055 A3       		.byte	-93
+ 1177 0056 74       		.byte	116
+ 1178 0057 39       		.byte	57
+ 1179 0058 65       		.byte	101
+ 1180 0059 28       		.byte	40
+ 1181 005a FF       		.byte	-1
+ 1182 005b B2       		.byte	-78
+ 1183 005c 1C       		.byte	28
+ 1184 005d 51       		.byte	81
+ 1185 005e 86       		.byte	-122
+ 1186 005f CB       		.byte	-53
+ 1187 0060 21       		.byte	33
+ 1188 0061 6C       		.byte	108
+ 1189 0062 BB       		.byte	-69
+ 1190 0063 F6       		.byte	-10
+ 1191 0064 58       		.byte	88
+ 1192 0065 15       		.byte	21
+ 1193 0066 C2       		.byte	-62
+ 1194 0067 8F       		.byte	-113
+ 1195 0068 D3       		.byte	-45
+ 1196 0069 9E       		.byte	-98
+ 1197 006a 49       		.byte	73
+ 1198 006b 04       		.byte	4
+ 1199 006c AA       		.byte	-86
+ 1200 006d E7       		.byte	-25
+ 1201 006e 30       		.byte	48
+ 1202 006f 7D       		.byte	125
+ 1203 0070 88       		.byte	-120
+ 1204 0071 C5       		.byte	-59
+ 1205 0072 12       		.byte	18
+ 1206 0073 5F       		.byte	95
+ 1207 0074 F1       		.byte	-15
+ 1208 0075 BC       		.byte	-68
+ 1209 0076 6B       		.byte	107
+ 1210 0077 26       		.byte	38
+ 1211 0078 7A       		.byte	122
+ 1212 0079 37       		.byte	55
+ 1213 007a E0       		.byte	-32
+ 1214 007b AD       		.byte	-83
+ 1215 007c 03       		.byte	3
+ 1216 007d 4E       		.byte	78
+ 1217 007e 99       		.byte	-103
+ 1218 007f D4       		.byte	-44
+ 1219 0080 7C       		.byte	124
+ 1220 0081 31       		.byte	49
+ 1221 0082 E6       		.byte	-26
+ 1222 0083 AB       		.byte	-85
+ 1223 0084 05       		.byte	5
+ 1224 0085 48       		.byte	72
+ 1225 0086 9F       		.byte	-97
+ 1226 0087 D2       		.byte	-46
+ 1227 0088 8E       		.byte	-114
+ 1228 0089 C3       		.byte	-61
+ 1229 008a 14       		.byte	20
+ 1230 008b 59       		.byte	89
+ 1231 008c F7       		.byte	-9
+ 1232 008d BA       		.byte	-70
+ 1233 008e 6D       		.byte	109
+ 1234 008f 20       		.byte	32
+ 1235 0090 D5       		.byte	-43
+ 1236 0091 98       		.byte	-104
+ 1237 0092 4F       		.byte	79
+ 1238 0093 02       		.byte	2
+ 1239 0094 AC       		.byte	-84
+ 1240 0095 E1       		.byte	-31
+ 1241 0096 36       		.byte	54
+ 1242 0097 7B       		.byte	123
+ 1243 0098 27       		.byte	39
+ 1244 0099 6A       		.byte	106
+ 1245 009a BD       		.byte	-67
+ 1246 009b F0       		.byte	-16
+ 1247 009c 5E       		.byte	94
+ 1248 009d 13       		.byte	19
+ 1249 009e C4       		.byte	-60
+ 1250 009f 89       		.byte	-119
+ 1251 00a0 63       		.byte	99
+ 1252 00a1 2E       		.byte	46
+ 1253 00a2 F9       		.byte	-7
+ 1254 00a3 B4       		.byte	-76
+ 1255 00a4 1A       		.byte	26
+ 1256 00a5 57       		.byte	87
+ 1257 00a6 80       		.byte	-128
+ 1258 00a7 CD       		.byte	-51
+ 1259 00a8 91       		.byte	-111
+ 1260 00a9 DC       		.byte	-36
+ 1261 00aa 0B       		.byte	11
+ 1262 00ab 46       		.byte	70
+ 1263 00ac E8       		.byte	-24
+ 1264 00ad A5       		.byte	-91
+ 1265 00ae 72       		.byte	114
+ 1266 00af 3F       		.byte	63
+ 1267 00b0 CA       		.byte	-54
+ 1268 00b1 87       		.byte	-121
+ 1269 00b2 50       		.byte	80
+ 1270 00b3 1D       		.byte	29
+ 1271 00b4 B3       		.byte	-77
+ 1272 00b5 FE       		.byte	-2
+ 1273 00b6 29       		.byte	41
+ 1274 00b7 64       		.byte	100
+ 1275 00b8 38       		.byte	56
+ 1276 00b9 75       		.byte	117
+ 1277 00ba A2       		.byte	-94
+ 1278 00bb EF       		.byte	-17
+ 1279 00bc 41       		.byte	65
+ 1280 00bd 0C       		.byte	12
+ 1281 00be DB       		.byte	-37
+ 1282 00bf 96       		.byte	-106
+ 1283 00c0 42       		.byte	66
+ 1284 00c1 0F       		.byte	15
+ 1285 00c2 D8       		.byte	-40
+ 1286 00c3 95       		.byte	-107
+ 1287 00c4 3B       		.byte	59
+ 1288 00c5 76       		.byte	118
+ 1289 00c6 A1       		.byte	-95
+ 1290 00c7 EC       		.byte	-20
+ 1291 00c8 B0       		.byte	-80
+ 1292 00c9 FD       		.byte	-3
+ 1293 00ca 2A       		.byte	42
+ 1294 00cb 67       		.byte	103
+ 1295 00cc C9       		.byte	-55
+ 1296 00cd 84       		.byte	-124
+ 1297 00ce 53       		.byte	83
+ 1298 00cf 1E       		.byte	30
+ 1299 00d0 EB       		.byte	-21
+ 1300 00d1 A6       		.byte	-90
+ 1301 00d2 71       		.byte	113
+ 1302 00d3 3C       		.byte	60
+ 1303 00d4 92       		.byte	-110
+ 1304 00d5 DF       		.byte	-33
+ 1305 00d6 08       		.byte	8
+ 1306 00d7 45       		.byte	69
+ 1307 00d8 19       		.byte	25
+ 1308 00d9 54       		.byte	84
+ 1309 00da 83       		.byte	-125
+ 1310 00db CE       		.byte	-50
+ 1311 00dc 60       		.byte	96
+ 1312 00dd 2D       		.byte	45
+ 1313 00de FA       		.byte	-6
+ 1314 00df B7       		.byte	-73
+ 1315 00e0 5D       		.byte	93
+ 1316 00e1 10       		.byte	16
+ 1317 00e2 C7       		.byte	-57
+ 1318 00e3 8A       		.byte	-118
+ 1319 00e4 24       		.byte	36
+ 1320 00e5 69       		.byte	105
+ 1321 00e6 BE       		.byte	-66
+ 1322 00e7 F3       		.byte	-13
+ 1323 00e8 AF       		.byte	-81
+ 1324 00e9 E2       		.byte	-30
+ 1325 00ea 35       		.byte	53
+ 1326 00eb 78       		.byte	120
+ 1327 00ec D6       		.byte	-42
+ 1328 00ed 9B       		.byte	-101
+ 1329 00ee 4C       		.byte	76
+ 1330 00ef 01       		.byte	1
+ 1331 00f0 F4       		.byte	-12
+ 1332 00f1 B9       		.byte	-71
+ 1333 00f2 6E       		.byte	110
+ 1334 00f3 23       		.byte	35
+ 1335 00f4 8D       		.byte	-115
+ 1336 00f5 C0       		.byte	-64
+ 1337 00f6 17       		.byte	23
+ 1338 00f7 5A       		.byte	90
+ 1339 00f8 06       		.byte	6
+ 1340 00f9 4B       		.byte	75
+ 1341 00fa 9C       		.byte	-100
+ 1342 00fb D1       		.byte	-47
+ 1343 00fc 7F       		.byte	127
+ 1344 00fd 32       		.byte	50
+ 1345 00fe E5       		.byte	-27
+ 1346 00ff A8       		.byte	-88
+ 1347              		.bss
+ 1348              		.align	2
+ 1349              		.set	.LANCHOR0,. + 0
+ 1352              	num_commands:
+ 1353 0000 00000000 		.space	4
+ 1356              	commands:
+ 1357 0004 00000000 		.space	384
+ 1357      00000000 
+ 1357      00000000 
+ 1357      00000000 
+ 1357      00000000 
+ 1358              		.text
+ 1359              	.Letext0:
+ 1360              		.file 2 "/usr/arm-none-eabi/include/machine/_default_types.h"
+ 1361              		.file 3 "/usr/arm-none-eabi/include/sys/_stdint.h"
+ 1362              		.file 4 "/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.h"
+ 1363              		.file 5 "/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//hal/stm32f0/stm32f0_hal.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 simpleserial.c
+     /tmp/ccb9orpN.s:19     .text.ss_crc:00000000 $t
+     /tmp/ccb9orpN.s:25     .text.ss_crc:00000000 ss_crc
+     /tmp/ccb9orpN.s:79     .text.ss_crc:00000020 $d
+     /tmp/ccb9orpN.s:84     .text.hex_decode:00000000 $t
+     /tmp/ccb9orpN.s:90     .text.hex_decode:00000000 hex_decode
+     /tmp/ccb9orpN.s:266    .text.ss_puts:00000000 $t
+     /tmp/ccb9orpN.s:272    .text.ss_puts:00000000 ss_puts
+     /tmp/ccb9orpN.s:311    .text.stuff_data:00000000 $t
+     /tmp/ccb9orpN.s:317    .text.stuff_data:00000000 stuff_data
+     /tmp/ccb9orpN.s:382    .text.unstuff_data:00000000 $t
+     /tmp/ccb9orpN.s:388    .text.unstuff_data:00000000 unstuff_data
+     /tmp/ccb9orpN.s:452    .text.simpleserial_addcmd:00000000 $t
+     /tmp/ccb9orpN.s:458    .text.simpleserial_addcmd:00000000 simpleserial_addcmd
+     /tmp/ccb9orpN.s:536    .text.simpleserial_addcmd:00000034 $d
+     /tmp/ccb9orpN.s:1356   .bss:00000004 commands
+     /tmp/ccb9orpN.s:542    .text.simpleserial_init:00000000 $t
+     /tmp/ccb9orpN.s:548    .text.simpleserial_init:00000000 simpleserial_init
+     /tmp/ccb9orpN.s:581    .text.simpleserial_init:00000018 $d
+     /tmp/ccb9orpN.s:714    .text.check_version:00000000 check_version
+     /tmp/ccb9orpN.s:764    .text.ss_get_commands:00000000 ss_get_commands
+     /tmp/ccb9orpN.s:587    .text.simpleserial_put:00000000 $t
+     /tmp/ccb9orpN.s:593    .text.simpleserial_put:00000000 simpleserial_put
+     /tmp/ccb9orpN.s:708    .text.check_version:00000000 $t
+     /tmp/ccb9orpN.s:758    .text.ss_get_commands:00000000 $t
+     /tmp/ccb9orpN.s:844    .text.ss_get_commands:00000030 $d
+     /tmp/ccb9orpN.s:851    .text.simpleserial_get:00000000 $t
+     /tmp/ccb9orpN.s:857    .text.simpleserial_get:00000000 simpleserial_get
+     /tmp/ccb9orpN.s:1084   .text.simpleserial_get:000000c8 $d
+     /tmp/ccb9orpN.s:1348   .bss:00000000 $d
+     /tmp/ccb9orpN.s:1352   .bss:00000000 num_commands
+
+UNDEFINED SYMBOLS
+putch
+getch

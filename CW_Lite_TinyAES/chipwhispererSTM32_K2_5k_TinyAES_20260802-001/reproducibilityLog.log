@@ -1,0 +1,36 @@
+##########################################################################
+### Collection finished at 10_09_2026 12:46:37 by iceinmilk
+### Collection process took 134.03s.
+##########################################################################
+Target Parameters: 
+ * Target Board: stm32f3
+ * Target Implementation: TINYAES128C
+ * Target Platform: CW308_STM32F3
+ * Simpleserial Version: SS_VER_1_1
+ * Target programmer: <class 'chipwhisperer.capture.api.programmers.STM32FProgrammer'>
+ * Target bitstream file: /home/iceinmilk/Documents/chipwhisperer/chipwhisperer/firmware/mcu/simpleserial-aes/simpleserial-aes-CW308_STM32F3.hex
+
+Scope Parameters: 
+ * Scope offset: 0
+ * Scope samples per trace: 5000
+ * Scope mode: high -> Scope basic_mode: rising_edge
+ * Scope Gain Level: 30 -> Gain Db: 24.8359375
+ * Scope trig_count: 26988
+ * Scope clkgen_div: 26
+ * Scope clkgen_freq: 7384615.384615385 -> 7.385 MHz
+ * Scope adc_src: clkgen_x4
+ * Scope adc_freq: 29538459 -> 29.538 MHz
+ * Scope adc_rate: 29538459.0
+
+Trace Collection Parameters: 
+ * Fixed key used? : True
+ * Tests Passed?: True
+ * Utilized Key: 2B 7E 15 16 28 AE D2 A6 AB F7 15 88 09 CF 4F 3C
+ * Number of traces collected: 5000
+
+Dataset Parameters: 
+ * Saved dataset name: STM32_K2_5k_TinyAES_20260802-001
+ * Saved dataset path: /home/iceinmilk/Documents/chipwhispererSTM32_K2_5k_TinyAES_20260802-001/STM32_K2_5k_TinyAES_20260802-001.npz
+ * Saved dataset size: 190.812 MBs
+ * Saved dataset hash (SHA256): 7e1b50cf2338294df642bef61f7a04f43dccfc5189dd340333824b5b81afcb90
+

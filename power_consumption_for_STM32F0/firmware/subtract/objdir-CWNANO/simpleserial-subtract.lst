@@ -1,0 +1,337 @@
+   1              		.cpu cortex-m0
+   2              		.arch armv6s-m
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 0
+  12              		.eabi_attribute 18, 4
+  13              		.file	"simpleserial-subtract.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.file 1 "simpleserial-subtract.c"
+  18              		.section	.text.get_key,"ax",%progbits
+  19              		.align	1
+  20              		.global	get_key
+  21              		.syntax unified
+  22              		.code	16
+  23              		.thumb_func
+  25              	get_key:
+  26              	.LVL0:
+  27              	.LFB0:
+   1:simpleserial-subtract.c **** #include "hal.h" // HAL function definitions
+   2:simpleserial-subtract.c **** #include <stdint.h> 
+   3:simpleserial-subtract.c **** #include <stdlib.h>
+   4:simpleserial-subtract.c **** #include "simpleserial.h" // include simpleserial
+   5:simpleserial-subtract.c **** 
+   6:simpleserial-subtract.c **** // hardcoded key
+   7:simpleserial-subtract.c **** static uint8_t key[16] = {0}; // initialize key as all 0's
+   8:simpleserial-subtract.c **** 
+   9:simpleserial-subtract.c **** // Read key in
+  10:simpleserial-subtract.c **** uint8_t get_key(uint8_t cmd, uint8_t scmd, uint8_t len, uint8_t *buf)
+  11:simpleserial-subtract.c **** {
+  28              		.loc 1 11 1 view -0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  12:simpleserial-subtract.c ****     if (len != 16) {
+  32              		.loc 1 12 5 view .LVU1
+  13:simpleserial-subtract.c ****         return 0x04; // SS_ERR_LEN
+  33              		.loc 1 13 16 is_stmt 0 view .LVU2
+  34 0000 0420     		movs	r0, #4
+  35              	.LVL1:
+  11:simpleserial-subtract.c ****     if (len != 16) {
+  36              		.loc 1 11 1 view .LVU3
+  37 0002 10B5     		push	{r4, lr}
+  38              	.LCFI0:
+  39              		.cfi_def_cfa_offset 8
+  40              		.cfi_offset 4, -8
+  41              		.cfi_offset 14, -4
+  12:simpleserial-subtract.c ****     if (len != 16) {
+  42              		.loc 1 12 8 view .LVU4
+  43 0004 102A     		cmp	r2, #16
+  44 0006 04D1     		bne	.L2
+  45              	.LBB2:
+  14:simpleserial-subtract.c ****     }
+  15:simpleserial-subtract.c ****     for (uint8_t i = 0; i < 16; i++) {
+  16:simpleserial-subtract.c ****         key[i] = buf[i]; // set key
+  46              		.loc 1 16 16 view .LVU5
+  47 0008 1900     		movs	r1, r3
+  48              	.LVL2:
+  49              		.loc 1 16 16 view .LVU6
+  50 000a 0248     		ldr	r0, .L4
+  51 000c FFF7FEFF 		bl	memcpy
+  52              	.LVL3:
+  53              		.loc 1 16 16 view .LVU7
+  54              	.LBE2:
+  17:simpleserial-subtract.c ****     }
+  18:simpleserial-subtract.c **** 
+  19:simpleserial-subtract.c ****     return 0x00; //SS_ERR_OK
+  55              		.loc 1 19 12 view .LVU8
+  56 0010 0020     		movs	r0, #0
+  57              	.L2:
+  20:simpleserial-subtract.c **** }
+  58              		.loc 1 20 1 view .LVU9
+  59              		@ sp needed
+  60 0012 10BD     		pop	{r4, pc}
+  61              	.L5:
+  62              		.align	2
+  63              	.L4:
+  64 0014 00000000 		.word	.LANCHOR0
+  65              		.cfi_endproc
+  66              	.LFE0:
+  68              		.section	.text.reset,"ax",%progbits
+  69              		.align	1
+  70              		.global	reset
+  71              		.syntax unified
+  72              		.code	16
+  73              		.thumb_func
+  75              	reset:
+  76              	.LVL4:
+  77              	.LFB1:
+  21:simpleserial-subtract.c **** 
+  22:simpleserial-subtract.c **** uint8_t reset(uint8_t* x, uint8_t len)
+  23:simpleserial-subtract.c **** {
+  78              		.loc 1 23 1 is_stmt 1 view -0
+  79              		.cfi_startproc
+  80              		@ args = 0, pretend = 0, frame = 0
+  81              		@ frame_needed = 0, uses_anonymous_args = 0
+  82              		@ link register save eliminated.
+  24:simpleserial-subtract.c **** 	// Reset key here if needed
+  25:simpleserial-subtract.c **** 	return 0x00;
+  83              		.loc 1 25 2 view .LVU11
+  26:simpleserial-subtract.c **** }
+  84              		.loc 1 26 1 is_stmt 0 view .LVU12
+  85 0000 0020     		movs	r0, #0
+  86              	.LVL5:
+  87              		.loc 1 26 1 view .LVU13
+  88              		@ sp needed
+  89 0002 7047     		bx	lr
+  90              		.cfi_endproc
+  91              	.LFE1:
+  93              		.section	.text.my_func,"ax",%progbits
+  94              		.align	1
+  95              		.global	my_func
+  96              		.syntax unified
+  97              		.code	16
+  98              		.thumb_func
+ 100              	my_func:
+ 101              	.LVL6:
+ 102              	.LFB2:
+  27:simpleserial-subtract.c **** 
+  28:simpleserial-subtract.c **** #if SS_VER == SS_VER_2_1
+  29:simpleserial-subtract.c **** // read plaintext, do encryption, then send ciphertext back
+  30:simpleserial-subtract.c **** uint8_t my_func(uint8_t cmd, uint8_t scmd, uint8_t len, uint8_t *buf)
+  31:simpleserial-subtract.c **** {
+ 103              		.loc 1 31 1 is_stmt 1 view -0
+ 104              		.cfi_startproc
+ 105              		@ args = 0, pretend = 0, frame = 0
+ 106              		@ frame_needed = 0, uses_anonymous_args = 0
+  32:simpleserial-subtract.c ****     if (len != 16) {
+ 107              		.loc 1 32 5 view .LVU15
+  31:simpleserial-subtract.c ****     if (len != 16) {
+ 108              		.loc 1 31 1 is_stmt 0 view .LVU16
+ 109 0000 70B5     		push	{r4, r5, r6, lr}
+ 110              	.LCFI1:
+ 111              		.cfi_def_cfa_offset 16
+ 112              		.cfi_offset 4, -16
+ 113              		.cfi_offset 5, -12
+ 114              		.cfi_offset 6, -8
+ 115              		.cfi_offset 14, -4
+  33:simpleserial-subtract.c ****         return 0x04; // SS_ERR_LEN
+ 116              		.loc 1 33 16 view .LVU17
+ 117 0002 0420     		movs	r0, #4
+ 118              	.LVL7:
+  31:simpleserial-subtract.c ****     if (len != 16) {
+ 119              		.loc 1 31 1 view .LVU18
+ 120 0004 1D00     		movs	r5, r3
+  32:simpleserial-subtract.c ****     if (len != 16) {
+ 121              		.loc 1 32 8 view .LVU19
+ 122 0006 102A     		cmp	r2, #16
+ 123 0008 12D1     		bne	.L8
+  34:simpleserial-subtract.c ****     }
+  35:simpleserial-subtract.c **** 
+  36:simpleserial-subtract.c ****     trigger_high();
+ 124              		.loc 1 36 5 is_stmt 1 view .LVU20
+ 125 000a 0024     		movs	r4, #0
+ 126 000c FFF7FEFF 		bl	trigger_high
+ 127              	.LVL8:
+  37:simpleserial-subtract.c ****     // start user code here
+  38:simpleserial-subtract.c ****     for (uint8_t i = 0; i < 16; i++) {
+ 128              		.loc 1 38 5 view .LVU21
+ 129              	.LBB3:
+ 130              		.loc 1 38 10 view .LVU22
+ 131              		.loc 1 38 27 discriminator 1 view .LVU23
+  39:simpleserial-subtract.c ****         buf[i] ^= key[i]; // do "encryption"
+ 132              		.loc 1 39 22 is_stmt 0 view .LVU24
+ 133 0010 0849     		ldr	r1, .L12
+ 134              	.LVL9:
+ 135              	.L9:
+ 136              		.loc 1 39 9 is_stmt 1 view .LVU25
+ 137              		.loc 1 39 16 is_stmt 0 view .LVU26
+ 138 0012 2B5D     		ldrb	r3, [r5, r4]
+ 139 0014 625C     		ldrb	r2, [r4, r1]
+ 140 0016 5340     		eors	r3, r2
+ 141 0018 2B55     		strb	r3, [r5, r4]
+  38:simpleserial-subtract.c ****         buf[i] ^= key[i]; // do "encryption"
+ 142              		.loc 1 38 34 is_stmt 1 discriminator 3 view .LVU27
+ 143              	.LVL10:
+  38:simpleserial-subtract.c ****         buf[i] ^= key[i]; // do "encryption"
+ 144              		.loc 1 38 27 discriminator 1 view .LVU28
+ 145 001a 0134     		adds	r4, r4, #1
+ 146              	.LVL11:
+  38:simpleserial-subtract.c ****         buf[i] ^= key[i]; // do "encryption"
+ 147              		.loc 1 38 27 is_stmt 0 discriminator 1 view .LVU29
+ 148 001c 102C     		cmp	r4, #16
+ 149 001e F8D1     		bne	.L9
+ 150              	.LBE3:
+  40:simpleserial-subtract.c ****     }
+  41:simpleserial-subtract.c ****     // end user code here
+  42:simpleserial-subtract.c ****     trigger_low();
+ 151              		.loc 1 42 5 is_stmt 1 view .LVU30
+ 152 0020 FFF7FEFF 		bl	trigger_low
+ 153              	.LVL12:
+  43:simpleserial-subtract.c **** 
+  44:simpleserial-subtract.c ****     simpleserial_put('r', 16, buf); // send ciphertext back
+ 154              		.loc 1 44 5 view .LVU31
+ 155 0024 7220     		movs	r0, #114
+ 156 0026 2A00     		movs	r2, r5
+ 157 0028 2100     		movs	r1, r4
+ 158 002a FFF7FEFF 		bl	simpleserial_put
+ 159              	.LVL13:
+  45:simpleserial-subtract.c **** 
+  46:simpleserial-subtract.c ****     return 0x00; //SS_ERR_OK
+ 160              		.loc 1 46 5 view .LVU32
+ 161              		.loc 1 46 12 is_stmt 0 view .LVU33
+ 162 002e 0020     		movs	r0, #0
+ 163              	.LVL14:
+ 164              	.L8:
+  47:simpleserial-subtract.c **** }
+ 165              		.loc 1 47 1 view .LVU34
+ 166              		@ sp needed
+ 167              	.LVL15:
+ 168              		.loc 1 47 1 view .LVU35
+ 169 0030 70BD     		pop	{r4, r5, r6, pc}
+ 170              	.L13:
+ 171 0032 C046     		.align	2
+ 172              	.L12:
+ 173 0034 00000000 		.word	.LANCHOR0
+ 174              		.cfi_endproc
+ 175              	.LFE2:
+ 177              		.section	.text.startup.main,"ax",%progbits
+ 178              		.align	1
+ 179              		.global	main
+ 180              		.syntax unified
+ 181              		.code	16
+ 182              		.thumb_func
+ 184              	main:
+ 185              	.LFB3:
+  48:simpleserial-subtract.c **** #endif
+  49:simpleserial-subtract.c **** 
+  50:simpleserial-subtract.c **** int main(void)
+  51:simpleserial-subtract.c **** {
+ 186              		.loc 1 51 1 is_stmt 1 view -0
+ 187              		.cfi_startproc
+ 188              		@ Volatile: function does not return.
+ 189              		@ args = 0, pretend = 0, frame = 0
+ 190              		@ frame_needed = 0, uses_anonymous_args = 0
+  52:simpleserial-subtract.c ****     // setup
+  53:simpleserial-subtract.c ****     platform_init();
+ 191              		.loc 1 53 5 view .LVU37
+  51:simpleserial-subtract.c ****     // setup
+ 192              		.loc 1 51 1 is_stmt 0 view .LVU38
+ 193 0000 10B5     		push	{r4, lr}
+ 194              	.LCFI2:
+ 195              		.cfi_def_cfa_offset 8
+ 196              		.cfi_offset 4, -8
+ 197              		.cfi_offset 14, -4
+ 198              		.loc 1 53 5 view .LVU39
+ 199 0002 FFF7FEFF 		bl	platform_init
+ 200              	.LVL16:
+  54:simpleserial-subtract.c **** 	init_uart();
+ 201              		.loc 1 54 2 is_stmt 1 view .LVU40
+ 202 0006 FFF7FEFF 		bl	init_uart
+ 203              	.LVL17:
+  55:simpleserial-subtract.c **** 	trigger_setup();
+ 204              		.loc 1 55 2 view .LVU41
+ 205 000a FFF7FEFF 		bl	trigger_setup
+ 206              	.LVL18:
+  56:simpleserial-subtract.c **** 
+  57:simpleserial-subtract.c ****  	/* Uncomment this to get a HELLO message for debug */
+  58:simpleserial-subtract.c **** 	/*
+  59:simpleserial-subtract.c **** 	putch('h');
+  60:simpleserial-subtract.c **** 	putch('e');
+  61:simpleserial-subtract.c **** 	putch('l');
+  62:simpleserial-subtract.c **** 	putch('l');
+  63:simpleserial-subtract.c **** 	putch('o');
+  64:simpleserial-subtract.c **** 	putch('\n');
+  65:simpleserial-subtract.c **** 	*/
+  66:simpleserial-subtract.c **** 
+  67:simpleserial-subtract.c **** 	simpleserial_init();
+ 207              		.loc 1 67 2 view .LVU42
+ 208 000e FFF7FEFF 		bl	simpleserial_init
+ 209              	.LVL19:
+ 210              	.L15:
+  68:simpleserial-subtract.c ****     
+  69:simpleserial-subtract.c **** #if SS_VER != SS_VER_2_1
+  70:simpleserial-subtract.c ****     simpleserial_addcmd('a', 16, my_func);
+  71:simpleserial-subtract.c ****     simpleserial_addcmd('b', 16, get_key);
+  72:simpleserial-subtract.c **** 	simpleserial_addcmd('x', 0, reset);
+  73:simpleserial-subtract.c **** #endif
+  74:simpleserial-subtract.c ****     
+  75:simpleserial-subtract.c **** 	while(1)
+ 211              		.loc 1 75 2 view .LVU43
+  76:simpleserial-subtract.c **** 		simpleserial_get();
+ 212              		.loc 1 76 3 discriminator 2 view .LVU44
+ 213 0012 FFF7FEFF 		bl	simpleserial_get
+ 214              	.LVL20:
+  75:simpleserial-subtract.c **** 		simpleserial_get();
+ 215              		.loc 1 75 7 view .LVU45
+ 216 0016 FCE7     		b	.L15
+ 217              		.cfi_endproc
+ 218              	.LFE3:
+ 220              		.bss
+ 221              		.set	.LANCHOR0,. + 0
+ 224              	key:
+ 225 0000 00000000 		.space	16
+ 225      00000000 
+ 225      00000000 
+ 225      00000000 
+ 226              		.text
+ 227              	.Letext0:
+ 228              		.file 2 "/usr/arm-none-eabi/include/machine/_default_types.h"
+ 229              		.file 3 "/usr/arm-none-eabi/include/sys/_stdint.h"
+ 230              		.file 4 "/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//simpleserial/simpleserial.h"
+ 231              		.file 5 "/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//hal/stm32f0/stm32f0_hal.h"
+ 232              		.file 6 "/home/iceinmilk/Documents/chipwhisperer//firmware/mcu//hal/hal.h"
+ 233              		.file 7 "<built-in>"
+DEFINED SYMBOLS
+                            *ABS*:00000000 simpleserial-subtract.c
+     /tmp/ccZ9UPNg.s:19     .text.get_key:00000000 $t
+     /tmp/ccZ9UPNg.s:25     .text.get_key:00000000 get_key
+     /tmp/ccZ9UPNg.s:64     .text.get_key:00000014 $d
+     /tmp/ccZ9UPNg.s:69     .text.reset:00000000 $t
+     /tmp/ccZ9UPNg.s:75     .text.reset:00000000 reset
+     /tmp/ccZ9UPNg.s:94     .text.my_func:00000000 $t
+     /tmp/ccZ9UPNg.s:100    .text.my_func:00000000 my_func
+     /tmp/ccZ9UPNg.s:173    .text.my_func:00000034 $d
+     /tmp/ccZ9UPNg.s:178    .text.startup.main:00000000 $t
+     /tmp/ccZ9UPNg.s:184    .text.startup.main:00000000 main
+     /tmp/ccZ9UPNg.s:224    .bss:00000000 key
+     /tmp/ccZ9UPNg.s:225    .bss:00000000 $d
+
+UNDEFINED SYMBOLS
+memcpy
+trigger_high
+trigger_low
+simpleserial_put
+platform_init
+init_uart
+trigger_setup
+simpleserial_init
+simpleserial_get
